@@ -2,3 +2,8 @@
     max-width: 1280px;
     background-color: #000000;
 }
+
+
+.check {
+    border: 3px solid red;
+}
