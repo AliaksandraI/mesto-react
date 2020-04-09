@@ -1,8 +1,7 @@
 .page {
-    max-width: 1280px;
+    max-width: 1440px;
     background-color: #000000;
 }
-
 
 .check {
     border: 3px solid red;

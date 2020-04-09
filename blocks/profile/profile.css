@@ -14,6 +14,10 @@
 }
 
 
-
+@media screen and (min-width: 1281px)  and (max-width: 1440px) {
+    .profile {
+        margin: 36px auto 0;
+    }
+}
 
 
