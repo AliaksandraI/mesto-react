@@ -3,8 +3,8 @@
 .header {
     max-width: 882px;
     min-height: 74px;
-    margin: 0 auto;
+    margin: 0 199px;
     padding-top: 45px;
     display: flex;
-
+    border-bottom: 1px solid #545454;
 }
