@@ -8,4 +8,6 @@
     cursor:pointer;
     overflow: hidden;
     outline:none;
+    background: none;
+    border: none;
 }
