@@ -11,3 +11,10 @@
     background: none;
     border: none;
 }
+
+@media screen and (max-width: 1050px) {
+    .profile__add-button {
+        width: 282px;
+        object-fit: cover;
+    }
+}

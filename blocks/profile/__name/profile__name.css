@@ -4,6 +4,25 @@
     font-weight: 500;
     font-size: 42px;
     color: #FFFFFF;
-    margin-top: 22px;
-    margin-bottom: 16px;
+    margin: 0;
+    
+}
+
+.profile__name-container {
+    display: flex;
+    align-items: baseline;
+    padding-top: 22px;
+    padding-bottom: 16px;
+}
+
+@media screen and (max-width: 890px) {
+    .profile__name {
+        font-size: 34px;
+    }
+}
+
+@media screen and (max-width: 670px) {
+    .profile__name {
+        font-size: 27px;
+    }
 }
