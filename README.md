@@ -1,12 +1,12 @@
 # Проект 4: Место
 
-
+Cервис Mesto: интерактивная страница, куда можно добавлять фотографии, удалять их и ставить лайки.
 
 ## Описание проекта
 
 Редактор кода: VSCode. 
 
-Используемые технологии: HTML5, CSS3, CSS Grid Layout, CSS Flexbox Layout.
+Используемые технологии: HTML5, CSS3, JavaScript, CSS Grid Layout, CSS Flexbox Layout.
 
 Подход к верстке и оформлению стилей: БЭМ. 
 
@@ -22,6 +22,6 @@
 1. Клонировать репозиторий в локальную папку:
 
 ```bash
-git clone https://github.com/AliaksandraI/russian-travel.git
+git clone https://github.com/AliaksandraI/mesto.git
 ```
 2. Запустить index.html в браузере
