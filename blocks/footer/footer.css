@@ -2,12 +2,11 @@
 
 .footer {
     max-width: 882px;
-    min-height: 18px;
     margin: 0 199px;
     padding: 0 0 60px;
 }
 
-@media screen and (min-width: 1281px)  and (max-width: 1440px) {
+@media screen and (min-width: 1281px) {
     .footer {
         margin: 0 auto;
     }

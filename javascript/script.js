@@ -17,15 +17,10 @@ function onEditButtonClicked(event) {
     popupProfession.value = profileProfession.textContent;
 }
 
-editButton.addEventListener('click', onEditButtonClicked);
-
 function onCloseButtonClicked(event) {
     event.preventDefault();
     popup.classList.remove('popup_opened');
 }
-
-closeButton.addEventListener('click', onCloseButtonClicked);
-
 
 function onSubmitForm(event) {
     event.preventDefault();
@@ -33,5 +28,9 @@ function onSubmitForm(event) {
     profileProfession.textContent = popupProfession.value;
     popup.classList.remove('popup_opened');
 }
+
+editButton.addEventListener('click', onEditButtonClicked);
+
+closeButton.addEventListener('click', onCloseButtonClicked);
 
 popupForm.addEventListener('submit', onSubmitForm);

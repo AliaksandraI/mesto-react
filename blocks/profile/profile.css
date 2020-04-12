@@ -8,14 +8,13 @@
 
 .profile {
     max-width: 882px;
-    min-height: 120px;
     display: flex;
     justify-content: space-between;
     margin: 36px 199px 0;
 }
 
 
-@media screen and (min-width: 1281px)  and (max-width: 1440px) {
+@media screen and (min-width: 1281px) {
     .profile {
         margin: 36px auto 0;
     }

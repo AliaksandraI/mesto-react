@@ -7,7 +7,6 @@
 
 .elements {
     max-width: 882px;
-    min-height: 744px;
     margin: 46px 199px 66px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -16,7 +15,7 @@
     row-gap: 21px;
 }
 
-@media screen and (min-width: 1281px)  and (max-width: 1440px) {
+@media screen and (min-width: 1281px) {
     .elements {
         margin: 46px auto 66px;
     }

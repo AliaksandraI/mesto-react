@@ -1,6 +1,7 @@
 .header__logo {
     max-width: 142px;
     height: 33px;
+    padding-bottom: 41px;
 }
 
 .header__logo:hover {
@@ -11,5 +12,6 @@
     .header__logo {
         max-width: 104px;
         height: 24px;
+        padding-bottom: 31px;
     }
 }
