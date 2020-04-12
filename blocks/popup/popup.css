@@ -5,7 +5,8 @@
 @import url(./__button/popup__button.css);
 @import url(./__close-button/popup__close-button.css);
 @import url(./__close-button-image/popup__close-button-image.css);
-/*@import url(./_opened/popup_opened.css); */
+@import url(./_closed/popup_closed.css);
+@import url(./_opened/popup_opened.css);
 
 
 .popup {
@@ -15,14 +16,8 @@
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
-    display: none;
     justify-content: center;
 } 
-
-
-.popup_opened {
-    display: flex;
-}
 
 
 
