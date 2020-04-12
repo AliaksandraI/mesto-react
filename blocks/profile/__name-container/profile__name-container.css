@@ -1,0 +1,6 @@
+.profile__name-container {
+    display: flex;
+    align-items: baseline;
+    padding-top: 22px;
+    padding-bottom: 16px;
+}

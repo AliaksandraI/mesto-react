@@ -3,6 +3,7 @@
 @import url(./__text/popup__text.css);
 @import url(./__button/popup__button.css);
 @import url(./__close-button/popup__close-button.css);
+@import url(./__close-button-image/popup__close-button-image.css);
 
 
 .popup {
