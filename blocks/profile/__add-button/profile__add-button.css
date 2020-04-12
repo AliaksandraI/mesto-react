@@ -1,5 +1,5 @@
 .profile__add-button {
-    max-width: 150px;
+    width: 150px;
     height: 50px;
     padding: 0;
     background-color: transparent;
@@ -9,7 +9,8 @@
     outline:none;
     align-self: center;
     background: none;
-    border: none;
+    border: 1px solid white;
+   
 }
 
 .profile__add-button:hover {
@@ -17,22 +18,11 @@
     transition: opacity 0.3s;
 }
 
-.profile__add-button-image_huge{
-    display: none;
-}
 
 @media screen and (max-width: 1050px) {
     .profile__add-button {
-        max-width: 282px;
+        width: 282px;
         margin-top: 30px;
-    }
-
-    .profile__add-button-image {
-        display: none;
-    }
-
-    .profile__add-button-image_huge {
-        display: block;
     }
 }
 
