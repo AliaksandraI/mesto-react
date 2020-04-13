@@ -25,14 +25,14 @@
                     <div>
                         <div class="profile__name-container">
                             <h1 class="profile__name">Жак-Ив Кусто</h1>
-                            <button  type="button" class="profile__edit-button">
+                            <button aria-label="edit" type="button" class="profile__edit-button">
                                 <img src="./images/edit__button.svg" alt="Кнопка изменения">
                             </button>
                         </div>
                         <p class="profile__profession">Исследователь океана</p>
                     </div>
                 </div>
-                <button type="button" class="profile__add-button">
+                <button aria-label="add" type="button" class="profile__add-button">
                     <img src="./images/add__button.svg" class="profile__add-button-image" alt="Кнопка добавления">
                 </button>
             </section>
@@ -41,7 +41,7 @@
                     <img class="elements__item-picture" src="./images/карачаевск.jpg" alt="Карачаевск">
                     <div class="elements__item-info">
                         <h2 class="elements__item-title">Карачаевск</h2>
-                        <button type="button" class="elements__heart-button">
+                        <button aria-label="like" type="button" class="elements__heart-button">
                             <img src="./images/heart.svg" alt="Знак сердца">
                         </button>
                     </div>
@@ -50,7 +50,7 @@
                     <img class="elements__item-picture" src="./images/гора_эльбрус.jpg" alt="Гора Эльбрус">
                     <div class="elements__item-info">
                         <h2 class="elements__item-title">Гора Эльбрус</h2>
-                        <button type="button" class="elements__heart-button">
+                        <button aria-label="like" type="button" class="elements__heart-button">
                             <img src="./images/heart.svg" alt="Знак сердца">
                         </button>
                     </div>
@@ -59,7 +59,7 @@
                     <img class="elements__item-picture" src="./images/домбаи.jpg" alt="Домбай">
                     <div class="elements__item-info">
                         <h2 class="elements__item-title">Домбай</h2>
-                        <button type="button" class="elements__heart-button">
+                        <button aria-label="like" type="button" class="elements__heart-button">
                             <img src="./images/heart.svg" alt="Знак сердца">
                         </button>
                     </div>
@@ -68,7 +68,7 @@
                     <img class="elements__item-picture" src="./images/гора_эльбрус.jpg" alt="Гора Эльбрус">
                     <div class="elements__item-info">
                         <h2 class="elements__item-title">Гора Эльбрус</h2>
-                        <button type="button" class="elements__heart-button">
+                        <button aria-label="like" type="button" class="elements__heart-button">
                             <img src="./images/heart.svg" alt="Знак сердца">
                         </button>
                     </div>
@@ -78,7 +78,7 @@
                     <img class="elements__item-picture" src="./images/домбаи.jpg" alt="Домбай">
                     <div class="elements__item-info">
                         <h2 class="elements__item-title">Домбай</h2>
-                        <button type="button" class="elements__heart-button">
+                        <button aria-label="like" type="button" class="elements__heart-button">
                             <img src="./images/heart.svg" alt="Знак сердца">
                         </button>
                     </div>
@@ -87,20 +87,20 @@
                     <img class="elements__item-picture" src="./images/карачаевск.jpg" alt="Карачаевск">
                     <div class="elements__item-info">
                         <h2 class="elements__item-title">Карачаевск</h2>
-                        <button type="button" class="elements__heart-button">
+                        <button aria-label="like" type="button" class="elements__heart-button">
                             <img src="./images/heart.svg" alt="Знак сердца">
                         </button>
                     </div>
                 </div>
             </section>
 
-            <section class="popup popup_closed">
+            <section class="popup popup_closed ">
                 <form  name="popup-form" method="get" action="#"  class="popup__container">
                     <h2 class="popup__title">Редактировать профиль</h2>
                     <input type="text" required value="name" placeholder="Имя" class="popup__text popup__text_type_name">
                     <input type="text" required  value="profession" placeholder="О себе" class="popup__text popup__text_type_profession">
                     <button type="submit" class="popup__button">Сохранить</button>
-                    <button type="button" class="popup__close-button">
+                    <button aria-label="close" type="button" class="popup__close-button">
                         <img src="./images/close_button.svg" alt="Кнопка закрыть" class="popup__close-button-image">
                     </button>
                 </form>

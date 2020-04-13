@@ -9,37 +9,31 @@ const popupName = document.querySelector('.popup__text_type_name');
 const popupProfession = document.querySelector('.popup__text_type_profession');
 const popupForm = document.querySelector('.popup__container');
 
-//вспомогательная функция открытия/закрытия формы
-function togglePopup() {
-    popup.classList.toggle('popup_opened');
-    popup.classList.toggle('popup_closed');
-}
-
-
-//функция открытия формы по нажатию на кнопку Edit
-function onEditButtonClicked(event) {
+//функция открытия формы и закрытия формы
+function toggleForm(event){
     event.preventDefault();
-    togglePopup();
-    popupName.value = profileName.textContent;
-    popupProfession.value = profileProfession.textContent;
-}
 
-//функция закрытия формы по нажатию на кнопку Close, изменения не сохраняются
-function onCloseButtonClicked(event) {
-    event.preventDefault();
-    togglePopup();
+    if(popup.classList.contains('popup_closed')) {
+        popup.classList.remove('popup_closed');
+        popup.classList.add('popup_opened');
+        popupName.value = profileName.textContent;
+        popupProfession.value = profileProfession.textContent;
+    }
+    else {
+        popup.classList.add('popup_closed');
+        popup.classList.remove('popup_opened');
+    }
 }
 
 //функция закрытия формы и сохранения внесенных изменения по нажатию на кнопку Submit
 function onSubmitForm(event) {
-    event.preventDefault();
+    toggleForm(event);
     profileName.textContent = popupName.value; 
     profileProfession.textContent = popupProfession.value;
-    togglePopup();
 }
 
-editButton.addEventListener('click', onEditButtonClicked);
+editButton.addEventListener('click', toggleForm);
 
-closeButton.addEventListener('click', onCloseButtonClicked);
+closeButton.addEventListener('click', toggleForm);
 
 popupForm.addEventListener('submit', onSubmitForm);
