@@ -36,6 +36,7 @@
                     <img src="./images/add__button.svg" class="profile__add-button-image" alt="Кнопка добавления">
                 </button>
             </section>
+
             <section class="elements">
                 <div class="elements__item">
                     <img class="elements__item-picture" src="./images/карачаевск.jpg" alt="Карачаевск">
@@ -73,7 +74,6 @@
                         </button>
                     </div>
                 </div>
-
                 <div class="elements__item">
                     <img class="elements__item-picture" src="./images/домбаи.jpg" alt="Домбай">
                     <div class="elements__item-info">
@@ -92,7 +92,21 @@
                         </button>
                     </div>
                 </div>
+                <template id="card">
+                <div class="elements__item">
+                    <img class="elements__item-picture">
+                    <div class="elements__item-info">
+                        <h2 class="elements__item-title"></h2>
+                        <button aria-label="like" type="button" class="elements__heart-button">
+                            <img src="./images/heart.svg" alt="Знак сердца">
+                        </button>
+                    </div>
+                </div>
+                </template>
             </section>
+
+
+
 
             <section class="popup popup_closed ">
                 <form  name="popup-form" method="get" action="#"  class="popup__container">
