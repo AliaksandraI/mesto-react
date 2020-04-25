@@ -64,22 +64,31 @@ const initialCards = [
     {
         name: 'Байкал',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
+    }  
 ];
 
 //template
-function addCard(link, name) {
 
-const cardTemplate = document.querySelector('#card').content;
-const cardAdded = document.querySelector('.elements__item');
+const cardsContainer = document.querySelector('.elements');
 
-const cardElement = cardTemplate.cloneNode(true);
+function addCard(name, link) {
 
-cardElement.querySelector('.elements__item-picture').src = link;
-cardElement.querySelector('.elements__item-title').textContent = name;
+    const cardTemplate = document.querySelector('#card-template').content;
+    const cardElement = cardTemplate.cloneNode(true);
 
-cardAdded.append(cardElement);
+    cardElement.querySelector('.elements__item-title').textContent = name;
+    cardElement.querySelector('.elements__item-picture').src = link;
+
+    cardsContainer.prepend(cardElement);
 }
+
+
+initialCards.forEach(function (item) {
+    
+    addCard(item.name, item.link); 
+
+});
+
 
 /*  addButton.addEventListener('click', function () {
     const     = document.querySelector('.input__text_type_link');
@@ -89,4 +98,4 @@ cardAdded.append(cardElement);
   
     artist.value = '';
     title.value = '';
-  });
+  }); */
