@@ -89,13 +89,45 @@ initialCards.forEach(function (item) {
 
 });
 
+//add button - открытие popup
 
-/*  addButton.addEventListener('click', function () {
-    const     = document.querySelector('.input__text_type_link');
-    const     = document.querySelector('.input__text_type_name');
-  
-    addCard(link.value, name.value);
-  
-    artist.value = '';
-    title.value = '';
-  }); */
+const addButton = document.querySelector('.profile__add-button');
+const popupAdd = document.querySelector('.popup-add');
+const closeButtonAdd = document.querySelector('.popup-add__close-button');
+const submitButtonAdd = document.querySelector('.popup-add__button');
+const popupPicture = document.querySelector('.popup__text_type_picture');
+const popupLink = document.querySelector('.popup__text_type_link');
+const popupFormAdd = document.querySelector('.popup-add__container');
+
+function toggleFormAdd(event){
+    event.preventDefault();
+
+    if(popupAdd.classList.contains('popup_closed')) {
+        popupAdd.classList.remove('popup_closed');
+        popupAdd.classList.add('popup_opened');
+        popupPicture.value = '';
+        popupLink.value = '';
+    }
+    else {
+        popupAdd.classList.add('popup_closed');
+        popupAdd.classList.remove('popup_opened');
+    }
+}
+
+//функция добавления картинки
+
+function onSubmitFormAdd(event) {
+    toggleFormAdd(event);
+    const newCard = {name: popupPicture.value, link: popupLink.value};
+    initialCards.push(newCard);
+    addCard(newCard.name, newCard.link);
+}
+
+
+addButton.addEventListener('click', toggleFormAdd);
+
+closeButtonAdd.addEventListener('click', toggleFormAdd);
+
+popupFormAdd.addEventListener('submit', onSubmitFormAdd);
+
+

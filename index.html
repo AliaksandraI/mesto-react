@@ -93,7 +93,7 @@
                     </div>
                 </div> -->
             </section>
-            
+
             <template id="card-template">
                 <div class="elements__item">
                     <img class="elements__item-picture">
@@ -119,6 +119,21 @@
                     </button>
                 </form>
             </section>
+
+            <section class="popup-add popup_closed ">
+                <form  name="popup-add-form" method="get" action="#"  class="popup-add__container">
+                    <h2 class="popup__title">Новое место</h2>
+                    <input type="text" required value="picture" placeholder="Название" class="popup__text popup__text_type_picture">
+                    <input type="text" required  value="link" placeholder="Ссылка на картинку" class="popup__text popup__text_type_link">
+                    <button type="submit" class="popup-add__button">Создать</button>
+                    <button aria-label="close" type="button" class="popup-add__close-button">
+                        <img src="./images/close_button.svg" alt="Кнопка закрыть" class="popup__close-button-image">
+                    </button>
+                </form>
+            </section>
+
+
+
         </main>
 
         <footer class="footer">
