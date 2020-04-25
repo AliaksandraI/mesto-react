@@ -4,6 +4,7 @@
 @import url(./__item-title/elements__item-title.css);
 @import url(./__item/elements__item.css);
 @import url(./__heart-button/elements__heart-button.css);
+@import url(./__delete-button/elements__delete-button.css);
 
 .elements {
     max-width: 882px;
@@ -14,6 +15,7 @@
     grid-auto-rows: 1fr;
     column-gap: 18px;
     row-gap: 21px;
+    
 }
 
 @media screen and (min-width: 1281px) {

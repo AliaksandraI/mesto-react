@@ -2,6 +2,6 @@
 .elements__item-info{
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
     padding: 25px 15px 31px 21px;
 }

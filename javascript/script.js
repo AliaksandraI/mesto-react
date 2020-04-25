@@ -79,7 +79,18 @@ function addCard(name, link) {
     cardElement.querySelector('.elements__item-title').textContent = name;
     cardElement.querySelector('.elements__item-picture').src = link;
 
+    cardElement.querySelector('.elements__heart-button').addEventListener('click', function (evt) {
+        evt.target.classList.toggle('elements__heart-button_active');
+    });
+
+
+    //удаление
+    cardElement.querySelector('.elements__delete-button').addEventListener('click', function (evt) {
+        evt.target.parentElement.remove();
+    });
+
     cardsContainer.prepend(cardElement);
+
 }
 
 
@@ -95,6 +106,7 @@ const addButton = document.querySelector('.profile__add-button');
 const popupAdd = document.querySelector('.popup-add');
 const closeButtonAdd = document.querySelector('.popup-add__close-button');
 const submitButtonAdd = document.querySelector('.popup-add__button');
+const deleteButtonAdd = document.querySelector('.elements__delete-button');
 const popupPicture = document.querySelector('.popup__text_type_picture');
 const popupLink = document.querySelector('.popup__text_type_link');
 const popupFormAdd = document.querySelector('.popup-add__container');
@@ -129,5 +141,8 @@ addButton.addEventListener('click', toggleFormAdd);
 closeButtonAdd.addEventListener('click', toggleFormAdd);
 
 popupFormAdd.addEventListener('submit', onSubmitFormAdd);
+
+
+
 
 
