@@ -71,8 +71,9 @@ const initialCards = [
 
 const cardsContainer = document.querySelector('.elements');
 
-function addCard(name, link) {
-
+function addCard(card) {
+    const name = card.name;
+    const link = card.link;
     const cardTemplate = document.querySelector('#card-template').content;
     const cardElement = cardTemplate.cloneNode(true);
 
@@ -86,7 +87,13 @@ function addCard(name, link) {
 
     //удаление
     cardElement.querySelector('.elements__delete-button').addEventListener('click', function (evt) {
-        evt.target.parentElement.remove();
+        evt.target.parentElement.parentElement.remove();
+
+        const index = initialCards.indexOf(card);
+        if (index >= 0) {
+            initialCards.splice(index, 1);
+        }
+
     });
 
     cardsContainer.prepend(cardElement);
@@ -96,7 +103,7 @@ function addCard(name, link) {
 
 initialCards.forEach(function (item) {
     
-    addCard(item.name, item.link); 
+    addCard(item); 
 
 });
 
@@ -132,7 +139,7 @@ function onSubmitFormAdd(event) {
     toggleFormAdd(event);
     const newCard = {name: popupPicture.value, link: popupLink.value};
     initialCards.push(newCard);
-    addCard(newCard.name, newCard.link);
+    addCard(newCard);
 }
 
 
