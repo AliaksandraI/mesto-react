@@ -86,8 +86,8 @@ function togglePicturePopup(card) {
     else {
         picturePopup.classList.remove('popup-picture_opened');
         picturePopup.classList.add('popup-picture_closed');
-        picturePopupLink.src = '';
-        picturePopupName.textContent = '';
+       // picturePopupLink.src = '';
+       // picturePopupName.textContent = '';
     } 
 }
 
