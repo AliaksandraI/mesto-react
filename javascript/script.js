@@ -71,6 +71,28 @@ const initialCards = [
 
 const cardsContainer = document.querySelector('.elements');
 
+const picturePopup = document.querySelector('.popup-picture');
+const picturePopupLink = document.querySelector('.popup-picture__image');
+const picturePopupName = document.querySelector('.popup-picture__title');
+const picturePopupCloseButton = document.querySelector('.popup-picture__close-button');
+
+function togglePicturePopup(card) {
+    if(card) {
+        picturePopup.classList.remove('popup-picture_closed');
+        picturePopup.classList.add('popup-picture_opened');
+        picturePopupLink.src = card.link;
+        picturePopupName.textContent = card.name;
+    }
+    else {
+        picturePopup.classList.remove('popup-picture_opened');
+        picturePopup.classList.add('popup-picture_closed');
+        picturePopupLink.src = '';
+        picturePopupName.textContent = '';
+    } 
+}
+
+picturePopupCloseButton.addEventListener('click', function(){togglePicturePopup()});
+
 function addCard(card) {
     const name = card.name;
     const link = card.link;
@@ -84,39 +106,10 @@ function addCard(card) {
         evt.target.classList.toggle('elements__heart-button_active');
     });
 
-
-
-    // функция открытия и закрытия картинки
-    const popupPictureOpen = document.querySelector('.popup-picture');
-    const popupPictureLink = document.querySelector('.popup-picture__image');
-    const popupPictureName = document.querySelector('.popup-picure__title');
-    const closeButtonPicture = document.querySelector('.popup-picture__close-button');
-    const openPicture = cardElement.querySelector('.elements__item-picture');
-
-    function togglePicture(event){
-        event.preventDefault();
-
-        if(popupPictureOpen.classList.contains('popup-picture_closed')) {
-            popupPictureOpen.classList.remove('popup-picture_closed');
-            popupPictureOpen.classList.add('popup-picture_opened');
-            popupPictureLink.src = link;
-            popupPictureName.value = name;
-        }
-        else {
-            popupPictureOpen.classList.add('popup-picture_closed');
-            popupPictureOpen.classList.remove('popup-picture_opened');
-            popupPictureLink.src = ' ';
-            popupPictureName.value = ' ';
-        }
-    }
-
-
-    openPicture.addEventListener('click', togglePicture);
-
-    closeButtonPicture.addEventListener('click', togglePicture);
-
-
-
+    // функция открытия картинки
+    cardElement.querySelector('.elements__item-picture').addEventListener('click', function(){
+        togglePicturePopup(card)
+    });
 
     //удаление
     cardElement.querySelector('.elements__delete-button').addEventListener('click', function (evt) {
@@ -126,13 +119,9 @@ function addCard(card) {
         if (index >= 0) {
             initialCards.splice(index, 1);
         }
-
     });
 
-    
-
     cardsContainer.prepend(cardElement);
-
 }
 
 
