@@ -1,3 +1,4 @@
+
 .popup__container {
     width: 430px;
     background: white;
@@ -10,6 +11,7 @@
     margin: auto 0;
     position: relative;
 }
+
 
 @media screen and (max-width: 500px) {
     .popup__container {
