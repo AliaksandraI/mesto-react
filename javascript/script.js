@@ -53,19 +53,31 @@ const initialCards = [
     }  
 ];
 
+function closePopup(popup) {
+    popup.classList.add('popup_closed');
+    popup.classList.remove('popup_opened');
+}
+
+function openPopup(popup) {
+    popup.classList.add('popup_opened');
+    popup.classList.remove('popup_closed');
+}
+
+function isPopupClosed(popup) {
+    return popup.classList.contains('popup_closed');
+}
+
 //функция открытия формы и закрытия формы изменения данных профайла
 function toggleProfilePopup(event){
     event.preventDefault();
 
-    if(profilePopup.classList.contains('popup_closed')) {
-        profilePopup.classList.remove('popup_closed');
-        profilePopup.classList.add('popup_opened');
+    if(isPopupClosed(profilePopup)) {
+        openPopup(profilePopup);
         profilePopupName.value = profileName.textContent;
         profilePopupProfession.value = profileProfession.textContent;
     }
     else {
-        profilePopup.classList.add('popup_closed');
-        profilePopup.classList.remove('popup_opened');
+        closePopup(profilePopup);
     }
 }
 
@@ -79,14 +91,12 @@ function onSubmitProfileForm(event) {
 //функция открытия и закрытия картинки
 function togglePicturePopup(card) {
     if(card) {
-        picturePopup.classList.remove('popup_closed');
-        picturePopup.classList.add('popup_opened');
+        openPopup(picturePopup);
         picturePopupImage.src = card.link;
         picturePopupName.textContent = card.name;
     }
     else {
-        picturePopup.classList.remove('popup_opened');
-        picturePopup.classList.add('popup_closed');
+        closePopup(picturePopup);
     } 
 }
 
@@ -126,15 +136,12 @@ function addCard(card) {
 function toggleAddCardPopup(event){
     event.preventDefault();
 
-    if(addCardPopup.classList.contains('popup_closed')) {
-        addCardPopup.classList.remove('popup_closed');
-        addCardPopup.classList.add('popup_opened');
+    if(isPopupClosed(addCardPopup)) {
+        openPopup(addCardPopup);
         addCardPopupForm.reset();
-        
     }
     else {
-        addCardPopup.classList.add('popup_closed');
-        addCardPopup.classList.remove('popup_opened');
+        closePopup(addCardPopup);
     }
 }
 
