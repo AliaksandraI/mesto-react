@@ -54,30 +54,28 @@ const initialCards = [
 ];
 
 function closePopup(popup) {
-    popup.classList.add('popup_closed');
     popup.classList.remove('popup_opened');
 }
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
-    popup.classList.remove('popup_closed');
 }
 
-function isPopupClosed(popup) {
-    return popup.classList.contains('popup_closed');
+function isPopupOpened(popup) {
+    return popup.classList.contains('popup_opened');
 }
 
 //функция открытия формы и закрытия формы изменения данных профайла
 function toggleProfilePopup(event){
     event.preventDefault();
 
-    if(isPopupClosed(profilePopup)) {
-        openPopup(profilePopup);
-        profilePopupName.value = profileName.textContent;
-        profilePopupProfession.value = profileProfession.textContent;
+    if(isPopupOpened(profilePopup)) {
+        closePopup(profilePopup);
     }
     else {
-        closePopup(profilePopup);
+        openPopup(profilePopup);
+        profilePopupName.value = profileName.textContent;
+        profilePopupProfession.value = profileProfession.textContent; 
     }
 }
 
@@ -136,12 +134,12 @@ function addCard(card) {
 function toggleAddCardPopup(event){
     event.preventDefault();
 
-    if(isPopupClosed(addCardPopup)) {
-        openPopup(addCardPopup);
-        addCardPopupForm.reset();
+    if(isPopupOpened(addCardPopup)) {
+        closePopup(addCardPopup);
     }
     else {
-        closePopup(addCardPopup);
+        openPopup(addCardPopup);
+        addCardPopupForm.reset(); 
     }
 }
 
