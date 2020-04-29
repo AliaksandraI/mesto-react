@@ -53,49 +53,46 @@ const initialCards = [
     }  
 ];
 
-function closePopup(popup) {
-    popup.classList.remove('popup_opened');
+
+function togglePopup(popup) {
+    popup.classList.toggle('popup_opened');
 }
 
-function openPopup(popup) {
-    popup.classList.add('popup_opened');
-}
 
-function isPopupOpened(popup) {
-    return popup.classList.contains('popup_opened');
-}
+//функции открытия формы и закрытия формы изменения данных профайла
 
-//функция открытия формы и закрытия формы изменения данных профайла
-function toggleProfilePopup(event){
+function openProfilePopup(event){
     event.preventDefault();
-
-    if(isPopupOpened(profilePopup)) {
-        closePopup(profilePopup);
-    }
-    else {
-        openPopup(profilePopup);
-        profilePopupName.value = profileName.textContent;
-        profilePopupProfession.value = profileProfession.textContent; 
-    }
+    togglePopup(profilePopup);
+    profilePopupName.value = profileName.textContent;
+    profilePopupProfession.value = profileProfession.textContent; 
 }
+
+function closeProfilePopup(event){
+    event.preventDefault();
+    togglePopup(profilePopup);
+}
+   
 
 //функция закрытия формы и сохранения внесенных изменения данных профайла по нажатию на кнопку Submit
 function onSubmitProfileForm(event) {
-    toggleProfilePopup(event);
+    closeProfilePopup(event);
     profileName.textContent = profilePopupName.value; 
     profileProfession.textContent = profilePopupProfession.value;
 }
 
-//функция открытия и закрытия картинки
-function togglePicturePopup(card) {
-    if(card) {
-        openPopup(picturePopup);
-        picturePopupImage.src = card.link;
-        picturePopupName.textContent = card.name;
-    }
-    else {
-        closePopup(picturePopup);
-    } 
+//функции открытия и закрытия картинки
+
+function openPicturePopup(event,card) {
+    event.preventDefault();
+    togglePopup(picturePopup);
+    picturePopupImage.src = card.link;
+    picturePopupName.textContent = card.name;
+}
+
+function closePicturePopup(event) {
+    event.preventDefault();
+    togglePopup(picturePopup);
 }
 
 //функция добавления карточки с картинкой
@@ -114,7 +111,7 @@ function addCard(card) {
 
     // функция открытия картинки
     cardElement.querySelector('.elements__item-picture').addEventListener('click', function(){
-        togglePicturePopup(card)
+        openPicturePopup(event, card)
     });
 
     //функция удаления карточки
@@ -130,22 +127,21 @@ function addCard(card) {
     cardsContainer.prepend(cardElement);
 }
 
-//функция открытия и закрытия окна для добавления карточки
-function toggleAddCardPopup(event){
+//функции открытия и закрытия окна для добавления карточки 
+function openAddCardPopup(event){
     event.preventDefault();
+    togglePopup(addCardPopup);
+    addCardPopupForm.reset(); 
+}
 
-    if(isPopupOpened(addCardPopup)) {
-        closePopup(addCardPopup);
-    }
-    else {
-        openPopup(addCardPopup);
-        addCardPopupForm.reset(); 
-    }
+function closeAddCardPopup(event){
+    event.preventDefault();
+    togglePopup(addCardPopup);
 }
 
 //функция добавления картинки
 function onSubmitAddCardForm(event) {
-    toggleAddCardPopup(event);
+    closeAddCardPopup(event);
     const newCard = {name: addCardPopupName.value, link: addCardPopupLink.value};
     initialCards.push(newCard);
     addCard(newCard);
@@ -158,17 +154,17 @@ function renderCards() {
 }
 
 //обработчики событий
-editProfileButton.addEventListener('click', toggleProfilePopup);
+editProfileButton.addEventListener('click', openProfilePopup);
 
-closeProfileButton.addEventListener('click', toggleProfilePopup);
+closeProfileButton.addEventListener('click', closeProfilePopup);
 
 profilePopupForm.addEventListener('submit', onSubmitProfileForm);
 
-picturePopupCloseButton.addEventListener('click', function(){togglePicturePopup(null)});
+picturePopupCloseButton.addEventListener('click', closePicturePopup);
 
-addCardButton.addEventListener('click', toggleAddCardPopup);
+addCardButton.addEventListener('click', openAddCardPopup);
 
-closeAddCardPopupButton.addEventListener('click', toggleAddCardPopup);
+closeAddCardPopupButton.addEventListener('click', closeAddCardPopup);
 
 addCardPopupForm.addEventListener('submit', onSubmitAddCardForm);
 
