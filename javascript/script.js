@@ -153,6 +153,7 @@ function renderCards() {
     });
 }
 
+
 //обработчики событий
 editProfileButton.addEventListener('click', openProfilePopup);
 
@@ -172,4 +173,47 @@ addCardPopupForm.addEventListener('submit', onSubmitAddCardForm);
 renderCards();
 
 
+//3й проект
+const formElement = document.querySelector('.form');
+
+const formInput = document.querySelector('.popup__text');
+console.log(formInput);
+const formError = document.querySelector(`#${formInput.id}-error`);
+console.log(formError);
+
+const showInputError = (element) => {
+    element.classList.add('form__input-error');
+    // Показываем сообщение об ошибке
+    //formError.classList.add('form__input-error_active');
+  };
+  
+const hideInputError = (element) => {
+    element.classList.remove('form__input-error');
+    // Скрываем сообщение об ошибке
+    //formError.classList.remove('form__input-error_active');
+};
+
+const isValid = () => {
+    if (!formInput.validity.valid) {
+      // Если поле не проходит валидацию, покажем ошибку
+      showInputError(formInput);
+    } else {
+      // Если проходит, скроем
+      hideInputError(formInput);
+    }
+  };
+  
+
+
+formElement.addEventListener('submit', function (evt) {
+    // Отменим стандартное поведение
+    evt.preventDefault();
+  });
+  // Слушатель события input
+  formInput.addEventListener('input', function (evt) {
+    // Выведем в консоль значение свойства validity.valid поля ввода, 
+    // на котором слушаем событие input
+    console.log(evt.target.validity.valid);
+  });
+  
 
