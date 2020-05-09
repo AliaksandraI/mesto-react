@@ -111,7 +111,7 @@ function addCard(card) {
 
     // функция открытия картинки
     cardElement.querySelector('.elements__item-picture').addEventListener('click', function(){
-        openPicturePopup(event, card)
+        openPicturePopup(event, card);
     });
 
     //функция удаления карточки
@@ -187,7 +187,7 @@ const showInputError = (formElement, inputElement, errorMessage) => {
     // Показываем сообщение об ошибке
     errorElement.classList.add('form__input-error_active');
     errorElement.textContent = errorMessage;
-  };
+};
   
 const hideInputError = (formElement, inputElement) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
@@ -209,6 +209,7 @@ const isValid = (formElement, inputElement) => {
  
 
 const setEventListeners = (formElement) => {
+    
     // Находим все поля внутри формы,
     // сделаем из них массив методом Array.from
     const inputList = Array.from(formElement.querySelectorAll('.form__input'));
@@ -239,6 +240,10 @@ const enableValidation = () => {
         // У каждой формы отменим стандартное поведение
         evt.preventDefault();
       });
+      formElement.addEventListener('mousedown', (evt) => {
+        evt.stopImmediatePropagation();
+      });
+
   // Для каждой формы вызовем функцию setEventListeners,
       // передав ей элемент формы
       setEventListeners(formElement);
@@ -280,3 +285,41 @@ document.addEventListener('keydown', function(event) {
         popupWhichIsOpen.classList.remove('popup_opened');
     };
 });
+
+//Закрытие попапа кликом на оверлей
+
+
+
+/*работает только на картинке
+
+const popup = document.querySelector('.popup');
+
+popup.addEventListener('mousedown', function() { 
+        const popupWhichIsOpen = document.querySelector('.popup_opened');
+        popupWhichIsOpen.classList.remove('popup_opened');
+});
+
+*/
+
+
+//* не работает
+const enableOverlayClick = () => {
+    
+    const popupList = Array.from(document.querySelectorAll('.popup'));
+
+  
+    popupList.forEach((popupElement) => {
+      popupElement.addEventListener('mousedown', () => {
+        const popupWhichIsOpen = document.querySelector('.popup_opened');
+        popupWhichIsOpen.classList.remove('popup_opened');
+      });
+    });
+};
+
+//popup_picture stopPropagation
+//picturePopup.addEventListener('mousedown', (evt) => {
+  //  evt.stopImmediatePropagation();
+//  });
+
+enableOverlayClick();
+
