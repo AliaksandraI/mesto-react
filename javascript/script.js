@@ -271,3 +271,12 @@ const toggleButtonState = (inputList, buttonElement) => {
 
 // Вызовем функцию
 enableValidation();
+
+//Закрытие попапа нажатием на Esc
+document.addEventListener('keydown', function(event) {
+    const key = event.key; 
+    if (key === "Escape") {
+        const popupWhichIsOpen = document.querySelector('.popup_opened');
+        popupWhichIsOpen.classList.remove('popup_opened');
+    };
+});

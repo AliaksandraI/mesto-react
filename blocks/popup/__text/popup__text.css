@@ -12,7 +12,7 @@
     color: black;
 }
 
-.popup__text:invalid {
+.popup__text:not(:placeholder-shown):invalid {
     border-bottom: 1px solid #FF0000;
 }
 
