@@ -79,6 +79,7 @@ function closeProfilePopup(event){
 //функция закрытия формы и сохранения внесенных изменения данных профайла по нажатию на кнопку Submit
 function onSubmitProfileForm(event) {
     closeProfilePopup(event);
+
     profileName.textContent = profilePopupName.value; 
     profileProfession.textContent = profilePopupProfession.value;
 }
@@ -213,7 +214,7 @@ const isValid = (formElement, inputElement) => {
   };
  
 
-const setEventListeners = (formElement) => {
+const setEventListeners = (formElement, validationOptions) => {
     // Находим все поля внутри формы,
     // сделаем из них массив методом Array.from
     const inputList = Array.from(formElement.querySelectorAll('.form__input'));
@@ -233,7 +234,12 @@ const setEventListeners = (formElement) => {
     });
 };
   
-const enableValidation = () => {
+const enableValidation = ({formSelector: '.form',
+                        inputSelector: '.popup__input',
+                        submitButtonSelector: '.popup__button',
+                        inactiveButtonClass: 'popup__button_disabled',
+                        inputErrorClass: 'popup__input_type_error',
+                        errorClass: 'popup__error_visible'}) => {
     // Найдём все формы с указанным классом в DOM,
     // сделаем из них массив методом Array.from
     const formList = Array.from(document.querySelectorAll('.form'));
@@ -250,7 +256,7 @@ const enableValidation = () => {
 
   // Для каждой формы вызовем функцию setEventListeners,
       // передав ей элемент формы
-      setEventListeners(formElement);
+      setEventListeners(formElement,validationOptions);
     });
 };
 
@@ -279,7 +285,6 @@ const toggleButtonState = (inputList, buttonElement) => {
 };
 
 
-enableValidation();
 
 //Закрытие попапа нажатием на Esc
 document.addEventListener('keydown', function(event) {
@@ -290,12 +295,10 @@ document.addEventListener('keydown', function(event) {
             popupWhichIsOpen.classList.remove('popup_opened');
         };
     } 
-
 });
 
 //Закрытие попапа кликом на оверлей
 const enableOverlayClick = () => {
-    
     const popupList = Array.from(document.querySelectorAll('.popup'));
 
     popupList.forEach((popupElement) => {
@@ -308,6 +311,7 @@ const enableOverlayClick = () => {
     });
 };
 
+enableValidation();
 
 enableOverlayClick();
 
