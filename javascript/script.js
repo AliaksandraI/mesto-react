@@ -61,6 +61,8 @@ function togglePopup(popup) {
 
 //функции открытия формы и закрытия формы изменения данных профайла
 
+
+
 function openProfilePopup(event){
     event.preventDefault();
     togglePopup(profilePopup);
@@ -112,6 +114,9 @@ function addCard(card) {
     // функция открытия картинки
     cardElement.querySelector('.elements__item-picture').addEventListener('click', function(){
         openPicturePopup(event, card);
+        picturePopupImage.addEventListener('click', (evt) => {
+            evt.stopImmediatePropagation();
+          });
     });
 
     //функция удаления карточки
@@ -209,7 +214,6 @@ const isValid = (formElement, inputElement) => {
  
 
 const setEventListeners = (formElement) => {
-    
     // Находим все поля внутри формы,
     // сделаем из них массив методом Array.from
     const inputList = Array.from(formElement.querySelectorAll('.form__input'));
@@ -217,7 +221,6 @@ const setEventListeners = (formElement) => {
   
     toggleButtonState(inputList, buttonElement);
     
-
   // Обойдем все элементы полученной коллекции
     inputList.forEach((inputElement) => {
       // каждому полю добавим обработчик события input
@@ -240,7 +243,8 @@ const enableValidation = () => {
         // У каждой формы отменим стандартное поведение
         evt.preventDefault();
       });
-      formElement.addEventListener('mousedown', (evt) => {
+      
+      formElement.addEventListener('click', (evt) => {
         evt.stopImmediatePropagation();
       });
 
@@ -274,52 +278,36 @@ const toggleButtonState = (inputList, buttonElement) => {
     }
 };
 
-// Вызовем функцию
+
 enableValidation();
 
 //Закрытие попапа нажатием на Esc
 document.addEventListener('keydown', function(event) {
-    const key = event.key; 
-    if (key === "Escape") {
-        const popupWhichIsOpen = document.querySelector('.popup_opened');
-        popupWhichIsOpen.classList.remove('popup_opened');
-    };
+    if(document.querySelector('.popup_opened')) {
+        const key = event.key; 
+        if (key === "Escape") {
+            const popupWhichIsOpen = document.querySelector('.popup_opened');
+            popupWhichIsOpen.classList.remove('popup_opened');
+        };
+    } 
+
 });
 
 //Закрытие попапа кликом на оверлей
-
-
-
-/*работает только на картинке
-
-const popup = document.querySelector('.popup');
-
-popup.addEventListener('mousedown', function() { 
-        const popupWhichIsOpen = document.querySelector('.popup_opened');
-        popupWhichIsOpen.classList.remove('popup_opened');
-});
-
-*/
-
-
-//* не работает
 const enableOverlayClick = () => {
     
     const popupList = Array.from(document.querySelectorAll('.popup'));
 
-  
     popupList.forEach((popupElement) => {
-      popupElement.addEventListener('mousedown', () => {
-        const popupWhichIsOpen = document.querySelector('.popup_opened');
-        popupWhichIsOpen.classList.remove('popup_opened');
-      });
+        popupElement.addEventListener('click', () => {
+            if(document.querySelector('.popup_opened')) {
+                const popupWhichIsOpen = document.querySelector('.popup_opened');
+                popupWhichIsOpen.classList.remove('popup_opened');
+            }
+        });
     });
 };
 
-//popup_picture stopPropagation
-//picturePopup.addEventListener('mousedown', (evt) => {
-  //  evt.stopImmediatePropagation();
-//  });
 
 enableOverlayClick();
 
