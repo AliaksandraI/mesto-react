@@ -1,7 +1,6 @@
 
 const form = document.querySelector('.form');
 const formInput = form.querySelector('.form__input');
-const formError = form.querySelector(`#${formInput.id}-error`);
 
 
 const showInputError = (formElement, inputElement, errorMessage) => {
@@ -28,25 +27,25 @@ const isValid = (formElement, inputElement) => {
  
 
 const setEventListeners = (formElement, validationOptions) => {
-    const inputList = Array.from(formElement.querySelectorAll(validationOptions.inputSelector));
+    const formInputs = Array.from(formElement.querySelectorAll(validationOptions.inputSelector));
     const buttonElement = formElement.querySelector( validationOptions.submitButtonSelector);
 
-    toggleButtonState(inputList, buttonElement, validationOptions);
+    toggleButtonState(formInputs, buttonElement, validationOptions);
   
-    inputList.forEach((inputElement) => {
+    formInputs.forEach((inputElement) => {
       
       inputElement.addEventListener('input', () => {
         isValid(formElement, inputElement);
-        toggleButtonState(inputList, buttonElement, validationOptions);
+        toggleButtonState(formInputs, buttonElement, validationOptions);
       });
     });
 };
   
 const enableValidation = (validationOptions) => {
 
-    const formList = Array.from(document.querySelectorAll(validationOptions.formSelector));
+    const forms = Array.from(document.querySelectorAll(validationOptions.formSelector));
 
-    formList.forEach((formElement) => {
+    forms.forEach((formElement) => {
       formElement.addEventListener('submit', (evt) => {
         evt.preventDefault();
       });
@@ -89,9 +88,9 @@ document.addEventListener('keydown', function(event) {
 
 
 const enableOverlayClick = () => {
-    const popupList = Array.from(document.querySelectorAll('.popup'));
+    const popups = Array.from(document.querySelectorAll('.popup'));
 
-    popupList.forEach((popupElement) => {
+    popups.forEach((popupElement) => {
         popupElement.addEventListener('click', () => {
             if(document.querySelector('.popup_opened')) {
                 const popupWhichIsOpen = document.querySelector('.popup_opened');
