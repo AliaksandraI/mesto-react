@@ -3,21 +3,35 @@ const form = document.querySelector('.form');
 const formInput = form.querySelector('.form__input');
 
 
+function toggleInputError(errorElement, inputElement) {
+    inputElement.classList.toggle('form__input_type_error');
+    errorElement.classList.toggle('form__input-error_active');
+}
+
+
 const showInputError = (formElement, inputElement, errorMessage) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    inputElement.classList.add('form__input_type_error');
-    errorElement.classList.add('form__input-error_active');
+    // Несмотря на то, что общий код вынесен в toggle, все равно необходимо вручную обращаться к классу form__input-error_active, 
+    // чтобы 'контролированно' вызывать метод toggle, который в противном случае будет плодить 'четные' ошибки.
+    if(!errorElement.classList.contains('form__input-error_active')) {
+        toggleInputError(errorElement, inputElement);
+    }
+
     errorElement.textContent = errorMessage;
 };
-  
+
 const hideInputError = (formElement, inputElement) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    inputElement.classList.remove('form__input_type_error');
-    errorElement.classList.remove('form__input-error_active');
+    // Несмотря на то, что общий код вынесен в toggle, все равно необходимо вручную обращаться к классу form__input-error_active, 
+    // чтобы 'контролированно' вызывать метод toggle, который в противном случае будет плодить 'четные' ошибки.
+    if(errorElement.classList.contains('form__input-error_active')) {
+        toggleInputError(errorElement, inputElement);
+    }
+
     errorElement.textContent = '';
 };
 
-const isValid = (formElement, inputElement) => {
+const checkValidity = (formElement, inputElement) => {
     if (!inputElement.validity.valid) {
       showInputError(formElement, inputElement, inputElement.validationMessage);
     } else {
@@ -35,7 +49,7 @@ const setEventListeners = (formElement, validationOptions) => {
     formInputs.forEach((inputElement) => {
       
       inputElement.addEventListener('input', () => {
-        isValid(formElement, inputElement);
+        checkValidity(formElement, inputElement);
         toggleButtonState(formInputs, buttonElement, validationOptions);
       });
     });
@@ -76,31 +90,6 @@ const toggleButtonState = (inputList, buttonElement, validationOptions) => {
 };
 
 
-document.addEventListener('keydown', function(event) {
-    if(document.querySelector('.popup_opened')) {
-        const key = event.key; 
-        if (key === "Escape") {
-            const popupWhichIsOpen = document.querySelector('.popup_opened');
-            popupWhichIsOpen.classList.remove('popup_opened');
-        };
-    } 
-});
-
-
-const enableOverlayClick = () => {
-    const popups = Array.from(document.querySelectorAll('.popup'));
-
-    popups.forEach((popupElement) => {
-        popupElement.addEventListener('click', () => {
-            if(document.querySelector('.popup_opened')) {
-                const popupWhichIsOpen = document.querySelector('.popup_opened');
-                popupWhichIsOpen.classList.remove('popup_opened');
-            }
-        });
-    });
-};
-
-
 enableValidation({
     formSelector: '.form',
     inputSelector: '.form__input',
@@ -108,5 +97,5 @@ enableValidation({
     inactiveButtonClass: 'form__submit_inactive',
 });
 
-enableOverlayClick();
+
 

@@ -55,15 +55,34 @@ const initialCards = [
     }  
 ];
 
-
 function togglePopup(popup) {
-    popup.classList.toggle('popup_opened');
+    const isOpened = popup.classList.toggle('popup_opened');
+    if(isOpened){
+        document.addEventListener("keydown", onDocumentKeydown);
+        popup.addEventListener("click", onPopupClick);
+    }
+    else {
+        document.removeEventListener("keydown", onDocumentKeydown);
+        popup.removeEventListener("click", onPopupClick);
+    }
+}
+
+function onDocumentKeydown(event) {
+    const popupWhichIsOpen = document.querySelector('.popup_opened');
+    if(popupWhichIsOpen && event.key === "Escape") {
+        togglePopup(popupWhichIsOpen);
+    }
+}
+
+function onPopupClick (event) {
+    const popupWhichIsOpen = document.querySelector('.popup_opened');
+    if(popupWhichIsOpen) {
+        togglePopup(popupWhichIsOpen);
+    }
 }
 
 
 //функции открытия формы и закрытия формы изменения данных профайла
-
-
 
 function onOpenProfilePopup(event){
     event.preventDefault();
@@ -71,7 +90,7 @@ function onOpenProfilePopup(event){
     hideInputError(profilePopupForm, profilePopupProfession);
     togglePopup(profilePopup);
     profilePopupName.value = profileName.textContent;
-    profilePopupProfession.value = profileProfession.textContent; 
+    profilePopupProfession.value = profileProfession.textContent;
 }
 
 function onCloseProfilePopup(event){
@@ -136,7 +155,6 @@ function addCard(card) {
 //функции открытия и закрытия окна для добавления карточки 
 function onOpenAddCardPopup(event){
     event.preventDefault();
-
     hideInputError(addCardPopupForm, addCardPopupName);
     hideInputError(addCardPopupForm, addCardPopupLink);
     togglePopup(addCardPopup);
@@ -151,10 +169,10 @@ function onCloseAddCardPopup(event){
 //функция добавления картинки
 function onSubmitAddCardPopupForm(event) {
     if (!addCardPopup.querySelector('.form__submit_inactive')){
-    onCloseAddCardPopup(event);
-    const newCard = {name: addCardPopupName.value, link: addCardPopupLink.value};
-    //initialCards.push(newCard);
-    addCard(newCard);
+        onCloseAddCardPopup(event);
+        const newCard = {name: addCardPopupName.value, link: addCardPopupLink.value};
+        //initialCards.push(newCard);
+        addCard(newCard);
     }
 }
 
