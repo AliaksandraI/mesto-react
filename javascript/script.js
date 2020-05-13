@@ -26,6 +26,8 @@ const addCardPopupName = addCardPopup.querySelector('.popup__text_type_picture')
 const addCardPopupLink = addCardPopup.querySelector('.popup__text_type_link');
 const addCardPopupForm = addCardPopup.querySelector('.popup__container');
 
+const cardTemplate = document.querySelector('#card-template');
+
 
 //массив с картинками
 const initialCards = [
@@ -86,8 +88,9 @@ function onPopupClick (event) {
 
 function onOpenProfilePopup(event){
     event.preventDefault();
-    hideInputError(profilePopupForm, profilePopupName);
-    hideInputError(profilePopupForm, profilePopupProfession);
+    resetError(profilePopupForm, profilePopupName);
+    resetError(profilePopupForm, profilePopupProfession);
+    toggleButtonInactivityOnForm(profilePopupForm, validationOptions, false);
     togglePopup(profilePopup);
     profilePopupName.value = profileName.textContent;
     profilePopupProfession.value = profileProfession.textContent;
@@ -97,8 +100,6 @@ function onCloseProfilePopup(event){
     event.preventDefault();
     togglePopup(profilePopup);
 }
-   
-
 
 //функция закрытия формы и сохранения внесенных изменения данных профайла по нажатию на кнопку Submit
 function onSubmitProfilePopupForm(event) {
@@ -111,7 +112,7 @@ function onSubmitProfilePopupForm(event) {
 
 //функции открытия и закрытия картинки
 
-function onOpenPicturePopup(event,card) {
+function openPicturePopup(event,card) {
     event.preventDefault();
     togglePopup(picturePopup);
     picturePopupImage.src = card.link;
@@ -127,7 +128,7 @@ function onClosePicturePopup(event) {
 function addCard(card) {
     const name = card.name;
     const link = card.link;
-    const cardElement = document.querySelector('#card-template').content.cloneNode(true);
+    const cardElement = cardTemplate.content.cloneNode(true);
    
 
     cardElement.querySelector('.elements__item-title').textContent = name;
@@ -140,7 +141,7 @@ function addCard(card) {
 
      // функция открытия картинки
     cardElement.querySelector('.elements__item-picture').addEventListener('click', function(evt){
-        onOpenPicturePopup(evt, card);
+        openPicturePopup(evt, card);
     });
 
     //функция удаления карточки
@@ -155,8 +156,9 @@ function addCard(card) {
 //функции открытия и закрытия окна для добавления карточки 
 function onOpenAddCardPopup(event){
     event.preventDefault();
-    hideInputError(addCardPopupForm, addCardPopupName);
-    hideInputError(addCardPopupForm, addCardPopupLink);
+    resetError(addCardPopupForm, addCardPopupName);
+    resetError(addCardPopupForm, addCardPopupLink);
+    toggleButtonInactivityOnForm(addCardPopupForm, validationOptions, true);
     togglePopup(addCardPopup);
     addCardPopupForm.reset(); 
 }
@@ -171,7 +173,6 @@ function onSubmitAddCardPopupForm(event) {
     if (!addCardPopup.querySelector('.form__submit_inactive')){
         onCloseAddCardPopup(event);
         const newCard = {name: addCardPopupName.value, link: addCardPopupLink.value};
-        //initialCards.push(newCard);
         addCard(newCard);
     }
 }
