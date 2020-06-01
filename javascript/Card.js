@@ -10,9 +10,38 @@ export class Card {
             .querySelector(this._cardSelector)
             .content
             .cloneNode(true);
-        
+
         return cardElement;
     }
+
+    _handleLikeClick(evt) {
+        evt.target.classList.toggle('elements__heart-button_active');
+    };
+
+    _deleteCard(evt) {
+        evt.target.parentElement.parentElement.remove();
+    };
+
+    _setEventListeners() {
+        this._element.querySelector('.elements__heart-button').addEventListener('click', (evt) => {
+            this._handleLikeClick(evt);
+        });
+
+        this._element.querySelector('.elements__item-picture').addEventListener('click', (evt) => {
+            if(this._openPictureListener) {
+                this._openPictureListener(evt, this._link, this._name);
+            }
+        });
+
+        this._element.querySelector('.elements__delete-button').addEventListener('click', (evt) => {  
+            this._deleteCard(evt);
+        });
+
+    };
+
+    addOpenPictureListener(openPictureListener) {
+        this._openPictureListener = openPictureListener;
+    };
 
     generateCard() {
         this._element = this._getTemplate();
@@ -24,37 +53,4 @@ export class Card {
 
         return this._element;
     }
-
-
-    _handleLikeClick(evt) {
-        evt.target.classList.toggle('elements__heart-button_active');
-    }
-
-    _openPicturePopup(event) {
-        event.preventDefault();
-        togglePopup(picturePopup);
-        picturePopupImage.src = this._link;
-        picturePopupName.textContent = this._name;
-    }
-
-    _deleteCard(evt) {
-        evt.target.parentElement.parentElement.remove();
-    };
-
-    _setEventListeners() {
-        
-        this._element.querySelector('.elements__heart-button').addEventListener('click', (evt) => {
-            this._handleLikeClick(evt);
-        });
-
-        this._element.querySelector('.elements__item-picture').addEventListener('click', (evt) => {
-            this._openPicturePopup(evt);
-        });
-
-        this._element.querySelector('.elements__delete-button').addEventListener('click', (evt) => {  
-            this._deleteCard(evt);
-        });
-
-    }
-
 }
