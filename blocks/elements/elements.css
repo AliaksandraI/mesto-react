@@ -8,7 +8,7 @@
 
 .elements {
     max-width: 882px;
-    margin: 46px 199px 66px;
+    margin: 46px auto 66px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
@@ -18,15 +18,11 @@
     
 }
 
-@media screen and (min-width: 1281px) {
-    .elements {
-        margin: 46px auto 66px;
-    }
-}
 
-@media screen and (max-width: 1230px) {
+@media screen and (max-width: 1440px) {
     .elements {
         max-width: 882px;
+        margin: 46px auto 66px;
     }
 }
 
