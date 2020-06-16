@@ -1,5 +1,6 @@
 import { FormValidator } from './FormValidator.js';
 import { Card } from './Card.js';
+import { UserInfo } from './UserInfo.js';
 
 const validationOptions = {
     formSelector: '.form',
@@ -10,8 +11,8 @@ const validationOptions = {
 
 //переменные для изменения данных профайла
 const editProfileButton = document.querySelector('.profile__edit-button');
-const profileName = document.querySelector('.profile__name');
-const profileProfession = document.querySelector('.profile__profession');
+const profileInfo = new UserInfo ('.profile__name', '.profile__profession')
+
 
 //профайл попап
 const profilePopup = document.querySelector('.popup_profile');
@@ -98,8 +99,9 @@ function onOpenProfilePopup(event){
     event.preventDefault();
     profilePopupFormValidator.resetFormErrors(false);
     togglePopup(profilePopup);
-    profilePopupName.value = profileName.textContent;
-    profilePopupProfession.value = profileProfession.textContent;
+    const profileData = profileInfo.getUserInfo();
+    profilePopupName.value = profileData.name;
+    profilePopupProfession.value = profileData.profession;
 }
 
 function onCloseProfilePopup(event){
@@ -111,8 +113,7 @@ function onCloseProfilePopup(event){
 function onSubmitProfilePopupForm(event) {
     if (!profilePopup.querySelector('.form__submit_inactive')){
         onCloseProfilePopup(event);
-        profileName.textContent = profilePopupName.value; 
-        profileProfession.textContent = profilePopupProfession.value;
+        profileInfo.setUserInfo(profilePopupName.value, profilePopupProfession.value);
     }
 }
 
