@@ -2,6 +2,7 @@ import { FormValidator } from './FormValidator.js';
 import { Card } from './Card.js';
 import { UserInfo } from './UserInfo.js';
 import { Section } from './Section.js';
+import { Popup } from './Popup.js';
 
 const validationOptions = {
     formSelector: '.form',
@@ -80,16 +81,7 @@ const defaultCardList =  new Section({
     }
 }, '.elements');
 
-
-//функция добавления картинки
-function addNewCard(name, link) {
-    const card = new Card(name, link, '#card-template');
-    card.addOpenPictureListener(onOpenPicturePopup);
-    const cardElement = card.generateCard();
-    defaultCardList.addItem(cardElement);
-}
-
-
+//popup
 function togglePopup(popup) {
     const isOpened = popup.classList.toggle('popup_opened');
     if(isOpened){
@@ -102,6 +94,7 @@ function togglePopup(popup) {
     }
 }
 
+//popup
 function onDocumentKeydown(event) {
     const popupWhichIsOpen = document.querySelector('.popup_opened');
     if(popupWhichIsOpen && event.key === "Escape") {
@@ -109,6 +102,7 @@ function onDocumentKeydown(event) {
     }
 }
 
+//popup
 function onPopupClick () {
     const popupWhichIsOpen = document.querySelector('.popup_opened');
     if(popupWhichIsOpen) {
@@ -116,6 +110,7 @@ function onPopupClick () {
     }
 }
 
+//popupwithform - profile
 //функции открытия формы и закрытия формы изменения данных профайла
 function onOpenProfilePopup(event){
     event.preventDefault();
@@ -126,11 +121,13 @@ function onOpenProfilePopup(event){
     profilePopupProfession.value = profileData.profession;
 }
 
+//popup
 function onCloseProfilePopup(event){
     event.preventDefault();
     togglePopup(profilePopup);
 }
 
+//popupwithform - profile
 //функция закрытия формы и сохранения внесенных изменения данных профайла по нажатию на кнопку Submit
 function onSubmitProfilePopupForm(event) {
     if (!profilePopup.querySelector('.form__submit_inactive')){
@@ -139,6 +136,7 @@ function onSubmitProfilePopupForm(event) {
     }
 }
 
+//popupwithimage
 function onOpenPicturePopup(event, link, name) {
     event.preventDefault();
     togglePopup(picturePopup);
@@ -146,11 +144,13 @@ function onOpenPicturePopup(event, link, name) {
     picturePopupName.textContent = name;
 }
 
+//popup
 function onClosePicturePopup(event) {
     event.preventDefault();
     togglePopup(picturePopup);
 }
 
+//popupwithform -add picture
 //функции открытия и закрытия окна для добавления карточки 
 function onOpenAddCardPopup(event){
     event.preventDefault();
@@ -159,13 +159,23 @@ function onOpenAddCardPopup(event){
     addCardPopupForm.reset(); 
 }
 
+
+//popup
 function onCloseAddCardPopup(event){
     event.preventDefault();
     togglePopup(addCardPopup);
 }
 
 
+//функция добавления картинки
+function addNewCard(name, link) {
+    const card = new Card(name, link, '#card-template');
+    card.addOpenPictureListener(onOpenPicturePopup);
+    const cardElement = card.generateCard();
+    defaultCardList.addItem(cardElement);
+}
 
+//popupwithform - add picture
 function onSubmitAddCardPopupForm(event) {
     if (!addCardPopup.querySelector('.form__submit_inactive')){
         onCloseAddCardPopup(event);
