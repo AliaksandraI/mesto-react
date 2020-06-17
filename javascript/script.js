@@ -1,6 +1,7 @@
 import { FormValidator } from './FormValidator.js';
 import { Card } from './Card.js';
 import { UserInfo } from './UserInfo.js';
+import { Section } from './Section.js';
 
 const validationOptions = {
     formSelector: '.form',
@@ -30,7 +31,7 @@ const picturePopupName = picturePopup.querySelector('.popup__title_picture');
 const picturePopupCloseButton = picturePopup.querySelector('.popup__close-button');
 
 //переменные для добавления карточек
-const cardsContainer = document.querySelector('.elements');
+//const cardsContainer = document.querySelector('.elements');
 const addCardButton = document.querySelector('.profile__add-button');
 
 const addCardPopup = document.querySelector('.popup_card');
@@ -67,6 +68,27 @@ const initialCards = [
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }  
 ];
+
+
+const defaultCardList =  new Section({ 
+    items: initialCards,
+    renderer: (item) => {
+      const card = new Card(item.name, item.link, '#card-template');
+      card.addOpenPictureListener(onOpenPicturePopup);
+      const cardElement = card.generateCard();
+      defaultCardList.addItem(cardElement);
+    }
+}, '.elements');
+
+
+//функция добавления картинки
+function addNewCard(name, link) {
+    const card = new Card(name, link, '#card-template');
+    card.addOpenPictureListener(onOpenPicturePopup);
+    const cardElement = card.generateCard();
+    defaultCardList.addItem(cardElement);
+}
+
 
 function togglePopup(popup) {
     const isOpened = popup.classList.toggle('popup_opened');
@@ -142,13 +164,7 @@ function onCloseAddCardPopup(event){
     togglePopup(addCardPopup);
 }
 
-//функция добавления картинки
-function addNewCard(name, link) {
-    const card = new Card(name, link, '#card-template');
-    card.addOpenPictureListener(onOpenPicturePopup);
-    const cardElement = card.generateCard();
-    cardsContainer.prepend(cardElement);
-}
+
 
 function onSubmitAddCardPopupForm(event) {
     if (!addCardPopup.querySelector('.form__submit_inactive')){
@@ -157,9 +173,8 @@ function onSubmitAddCardPopupForm(event) {
     };
 }
 
-initialCards.forEach((item) => { 
-    addNewCard(item.name, item.link);
-});
+defaultCardList.renderItems ();
+
 
 //обработчики событий
 picturePopupImage.addEventListener('click', (evt) => {
