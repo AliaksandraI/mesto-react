@@ -3,6 +3,7 @@ import { Card } from './Card.js';
 import { UserInfo } from './UserInfo.js';
 import { Section } from './Section.js';
 import { Popup } from './Popup.js';
+import { PopupWithImage } from './PopupWithImage.js';
 
 const validationOptions = {
     formSelector: '.form',
@@ -26,10 +27,10 @@ const profilePopupFormValidator = new FormValidator (validationOptions, profileP
 
 
 //переменные для большой картинки
-const picturePopup = document.querySelector('.popup_picture');
-const picturePopupImage = picturePopup.querySelector('.popup__image');
-const picturePopupName = picturePopup.querySelector('.popup__title_picture');
-const picturePopupCloseButton = picturePopup.querySelector('.popup__close-button');
+const picturePopup = new PopupWithImage ('.popup_picture'); //document.querySelector('.popup_picture');
+//const picturePopupImage = picturePopup.querySelector('.popup__image');
+//const picturePopupName = picturePopup.querySelector('.popup__title_picture');
+//const picturePopupCloseButton = picturePopup.querySelector('.popup__close-button');
 
 //переменные для добавления карточек
 //const cardsContainer = document.querySelector('.elements');
@@ -81,6 +82,8 @@ const defaultCardList =  new Section({
     }
 }, '.elements');
 
+
+/*
 //popup
 function togglePopup(popup) {
     const isOpened = popup.classList.toggle('popup_opened');
@@ -109,6 +112,7 @@ function onPopupClick () {
         togglePopup(popupWhichIsOpen);
     }
 }
+*/
 
 //popupwithform - profile
 //функции открытия формы и закрытия формы изменения данных профайла
@@ -121,11 +125,14 @@ function onOpenProfilePopup(event){
     profilePopupProfession.value = profileData.profession;
 }
 
+/*
 //popup
 function onCloseProfilePopup(event){
     event.preventDefault();
     togglePopup(profilePopup);
 }
+*/
+
 
 //popupwithform - profile
 //функция закрытия формы и сохранения внесенных изменения данных профайла по нажатию на кнопку Submit
@@ -139,16 +146,16 @@ function onSubmitProfilePopupForm(event) {
 //popupwithimage
 function onOpenPicturePopup(event, link, name) {
     event.preventDefault();
-    togglePopup(picturePopup);
-    picturePopupImage.src = link;
-    picturePopupName.textContent = name;
+    picturePopup.open(link, name);
 }
 
+/*
 //popup
 function onClosePicturePopup(event) {
     event.preventDefault();
     togglePopup(picturePopup);
 }
+*/
 
 //popupwithform -add picture
 //функции открытия и закрытия окна для добавления карточки 
@@ -159,12 +166,13 @@ function onOpenAddCardPopup(event){
     addCardPopupForm.reset(); 
 }
 
-
+/*
 //popup
 function onCloseAddCardPopup(event){
     event.preventDefault();
     togglePopup(addCardPopup);
 }
+*/
 
 
 //функция добавления картинки
@@ -187,21 +195,24 @@ defaultCardList.renderItems ();
 
 
 //обработчики событий
+
+/* проверить 
 picturePopupImage.addEventListener('click', (evt) => {
     evt.stopImmediatePropagation();
 });
+*/
 
 editProfileButton.addEventListener('click', onOpenProfilePopup);
 
-closeProfileButton.addEventListener('click', onCloseProfilePopup);
+//closeProfileButton.addEventListener('click', onCloseProfilePopup);
 
 profilePopupForm.addEventListener('submit', onSubmitProfilePopupForm);
 
-picturePopupCloseButton.addEventListener('click', onClosePicturePopup);
+//picturePopupCloseButton.addEventListener('click', onClosePicturePopup);
 
 addCardButton.addEventListener('click', onOpenAddCardPopup);
 
-closeAddCardPopupButton.addEventListener('click', onCloseAddCardPopup);
+//closeAddCardPopupButton.addEventListener('click', onCloseAddCardPopup);
 
 addCardPopupForm.addEventListener('submit', onSubmitAddCardPopupForm);
 

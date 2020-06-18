@@ -9,24 +9,32 @@ export class Popup {
     _togglePopup() {
         const isOpened = this._popupElement.classList.toggle('popup_opened');
         if (isOpened) {
-            document.addEventListener("keydown", this._handleEscClose);
-            this._popupElement.addEventListener("click", this._onPopupClick);
+            document.addEventListener("keydown", (evt) => {
+                this._handleEscClose(evt);
+            });
+            this._popupElement.addEventListener("click", () => {
+                this._onPopupClick();
+            });
         }
         else {
-            document.removeEventListener("keydown", this._handleEscClose);
-            this._popupElement.removeEventListener("click", this._onPopupClick);
+            document.removeEventListener("keydown", (evt) => {
+                this._handleEscClose(evt);
+            });
+            this._popupElement.removeEventListener("click", () => {
+                this._onPopupClick();
+            });
         }
     }
 
     _handleEscClose(event) {
-        const isOpen = this._popupElement.classList.includes('.popup_opened');
+        const isOpen = this._popupElement.classList.contains('popup_opened');
         if (isOpen && event.key === "Escape") {
             this._togglePopup();
         }
     }
 
     _onPopupClick() {
-        const isOpen = this._popupElement.classList.includes('.popup_opened');
+        const isOpen = this._popupElement.classList.contains('popup_opened');
         if (isOpen) {
             this._togglePopup();
         }
