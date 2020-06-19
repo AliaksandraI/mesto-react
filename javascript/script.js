@@ -26,7 +26,6 @@ const addCardButton = document.querySelector('.profile__add-button');
 const addCardPopup = new PopupWithForm ('.popup_card', onSubmitAddCardPopupForm,'.popup__text_type_picture', '.popup__text_type_link', validationOptions);
 
 
-//массив с картинками
 const initialCards = [
     {
         name: 'Архыз',
@@ -63,8 +62,7 @@ const defaultCardList =  new Section({
 }, '.elements');
 
 function addNewCard(name, link) {
-    const card = new Card(name, link, '#card-template');
-    card.addOpenPictureListener(onOpenPicturePopup);
+    const card = new Card(name, link, '#card-template',onOpenPicturePopup);
     const cardElement = card.generateCard();
     defaultCardList.addItem(cardElement);
 }
