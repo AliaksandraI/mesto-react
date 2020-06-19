@@ -1,9 +1,9 @@
 
-import { Card } from './Card.js';
-import { UserInfo } from './UserInfo.js';
-import { Section } from './Section.js';
-import { PopupWithImage } from './PopupWithImage.js';
-import { PopupWithForm } from './PopupWithForm.js';
+import { Card } from '../javascript/Card.js';
+import { UserInfo } from '../javascript/UserInfo.js';
+import { Section } from '../javascript/Section.js';
+import { PopupWithImage } from '../javascript/PopupWithImage.js';
+import { PopupWithForm } from '../javascript/PopupWithForm.js';
 
 const validationOptions = {
     formSelector: '.form',
