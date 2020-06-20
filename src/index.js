@@ -1,4 +1,4 @@
-
+import './index.css';
 import { Card } from '../javascript/Card.js';
 import { UserInfo } from '../javascript/UserInfo.js';
 import { Section } from '../javascript/Section.js';
