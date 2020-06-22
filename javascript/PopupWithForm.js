@@ -2,11 +2,10 @@ import { FormValidator } from "./FormValidator.js";
 import { Popup } from "./Popup.js";
 
 export class PopupWithForm extends Popup {
-    constructor(popupSelector, submitFormCallback, firstInputSelector, secondInputSelector,validationOptions) {
+    constructor(popupSelector, submitFormCallback, validationOptions) {
         super(popupSelector);
         this._submitFormCallback = submitFormCallback;
-        this._firstInput = this._popupElement.querySelector(firstInputSelector);
-        this._secondInput = this._popupElement.querySelector(secondInputSelector);
+        this._inputValues = Array.from(this._popupElement.querySelectorAll(validationOptions.inputSelector));
         this._popupForm = this._popupElement.querySelector('.popup__container');
         this._formValidator = new FormValidator (validationOptions, this._popupForm);
         this._formValidator.enableValidation();
@@ -14,22 +13,22 @@ export class PopupWithForm extends Popup {
     }
 
     _getInputValues () {
-        return {
-            input1: this._firstInput.value, 
-            input2: this._secondInput.value
-        };
+        const resultInputValues = this._inputValues.map(function (input) {
+            return input.value;
+        });
+
+        return resultInputValues;
     }
 
-    setInputValues (value1, value2) {
-        this._firstInput.value = value1;
-        this._secondInput.value = value2;
+    setInputValues (values) {
+        values.forEach((value, index) => this._inputValues[index].value = value);
     }
 
     _onSubmitAddCardPopupForm() {
         if (!this._popupElement.querySelector('.form__submit_inactive')){
             this.close();
-            const result = this._getInputValues ();
-            this._submitFormCallback(result.input1, result.input2);
+            const result = this._getInputValues();
+            this._submitFormCallback(result);
         }
     }
 

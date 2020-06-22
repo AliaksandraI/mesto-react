@@ -17,13 +17,13 @@ const editProfileButton = document.querySelector('.profile__edit-button');
 
 const profileInfo = new UserInfo ('.profile__name', '.profile__profession')
 
-const profilePopup = new PopupWithForm ('.popup_profile', onSubmitProfilePopupForm,'.popup__text_type_name', '.popup__text_type_profession', validationOptions);
+const profilePopup = new PopupWithForm ('.popup_profile', onSubmitProfilePopupForm, validationOptions);
 
 const picturePopup = new PopupWithImage ('.popup_picture'); //document.querySelector('.popup_picture');
 
 const addCardButton = document.querySelector('.profile__add-button');
 
-const addCardPopup = new PopupWithForm ('.popup_card', onSubmitAddCardPopupForm,'.popup__text_type_picture', '.popup__text_type_link', validationOptions);
+const addCardPopup = new PopupWithForm ('.popup_card', onSubmitAddCardPopupForm, validationOptions);
 
 
 const initialCards = [
@@ -73,24 +73,26 @@ function onOpenPicturePopup(link, name) {
 }
 
 
-function onOpenAddCardPopup(event){
+function onOpenAddCardPopup(){
     addCardPopup.open(true);
 }
 
 
-function onOpenProfilePopup(event){
+function onOpenProfilePopup(){
     profilePopup.open(false);
     const profileData = profileInfo.getUserInfo();
-    profilePopup.setInputValues(profileData.name, profileData.profession);
+    profilePopup.setInputValues([profileData.name, profileData.profession]);
 }
 
 
-function onSubmitProfilePopupForm(name, profession) {
+function onSubmitProfilePopupForm(values) {
+    const [name, profession] = values;
     profileInfo.setUserInfo(name, profession);  
 }
 
 
-function onSubmitAddCardPopupForm(name, link) {
+function onSubmitAddCardPopupForm(values) {
+    const [name, link] = values;
     addNewCard(name, link);
 }
 
