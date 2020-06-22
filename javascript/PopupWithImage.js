@@ -9,15 +9,15 @@ export class PopupWithImage extends Popup {
     }
     
     open (link, name) {
-        super.open();
         this._image.src = link;
         this._name.textContent = name;
+        super.open();
     }
 
     
     _setEventListeners() {
         super._setEventListeners();
-        this._image.addEventListener('click', (evt) => {
+        this._image.addEventListener('mousedown', (evt) => {
             evt.stopImmediatePropagation();
         });
     }

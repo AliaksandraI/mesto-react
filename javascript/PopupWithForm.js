@@ -35,10 +35,13 @@ export class PopupWithForm extends Popup {
 
     _setEventListeners() {
         super._setEventListeners();
-        this._popupForm = this._popupElement.querySelector('.popup__container');
         this._popupForm.addEventListener('submit', () => {
             this._onSubmitAddCardPopupForm();
         });
+
+        this._popupForm.addEventListener('mousedown', (evt) => {
+            evt.stopImmediatePropagation();
+          });
     }
 
     open (resetStatus) {

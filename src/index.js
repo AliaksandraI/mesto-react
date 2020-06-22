@@ -68,8 +68,7 @@ function addNewCard(name, link) {
 }
 
 //popupwithimage
-function onOpenPicturePopup(event, link, name) {
-    event.preventDefault();
+function onOpenPicturePopup(link, name) {
     picturePopup.open(link, name);
 }
 

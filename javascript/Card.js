@@ -30,7 +30,8 @@ export class Card {
 
         this._element.querySelector('.elements__item-picture').addEventListener('click', (evt) => {
             if(this._handleCardClick) {
-                this._handleCardClick(evt, this._link, this._name);
+                evt.preventDefault();
+                this._handleCardClick(this._link, this._name);
             }
         });
 

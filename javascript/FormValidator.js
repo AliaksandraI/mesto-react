@@ -49,10 +49,6 @@ export class FormValidator {
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
-    
-    this._formElement.addEventListener('click', (evt) => {
-      evt.stopImmediatePropagation();
-    });
 
     this._setEventListeners();
   };

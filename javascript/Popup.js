@@ -3,55 +3,51 @@ export class Popup {
     constructor(popupSelector) {
         this._popupElement = document.querySelector(popupSelector);
         this._closeButton = this._popupElement.querySelector('.popup__close-button');
+        this._documentEscHandler = this._handleEscClose.bind(this);
+        this._popupClickHandler = this._onPopupClick.bind(this);
     }
 
-    _togglePopup() {
-        const isOpened = this._popupElement.classList.toggle('popup_opened');
-        if (isOpened) {
-            document.addEventListener("keydown", (evt) => {
-                this._handleEscClose(evt);
-            });
-            this._popupElement.addEventListener("click", () => {
-                this._onPopupClick();
-            });
-        }
-        else {
-            document.removeEventListener("keydown", (evt) => {
-                this._handleEscClose(evt);
-            });
-            this._popupElement.removeEventListener("click", () => {
-                this._onPopupClick();
-            });
-        }
+    _openPopup() {
+        this._popupElement.classList.add('popup_opened');
+        
+        document.addEventListener("keydown", this._documentEscHandler);
+        this._popupElement.addEventListener("mousedown", this._popupClickHandler);
+    }
+
+    _closePopup() {
+        this._popupElement.classList.remove('popup_opened');
+
+        document.removeEventListener("keydown", this._documentEscHandler);
+        this._popupElement.removeEventListener("mousedown", this._popupClickHandler);
     }
 
     _handleEscClose(event) {
         const isOpen = this._popupElement.classList.contains('popup_opened');
         if (isOpen && event.key === "Escape") {
-            this._togglePopup();
+            this._closePopup();
         }
     }
 
     _onPopupClick() {
         const isOpen = this._popupElement.classList.contains('popup_opened');
         if (isOpen) {
-            this._togglePopup();
+            this._closePopup();
         }
     }
 
     _setEventListeners() {
         this._closeButton.addEventListener('click', (evt) => {
             evt.preventDefault();
-            this.close();
+            this._closePopup();
         });
     }
 
     open () {
-        this._togglePopup();
+        this._openPopup();
     }
     
     close () {
-        this._togglePopup();
+        this._closePopup();
     }
 
 }
