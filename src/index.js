@@ -19,7 +19,7 @@ const profileInfo = new UserInfo ('.profile__name', '.profile__profession')
 
 const profilePopup = new PopupWithForm ('.popup_profile', onSubmitProfilePopupForm, validationOptions);
 
-const picturePopup = new PopupWithImage ('.popup_picture'); //document.querySelector('.popup_picture');
+const picturePopup = new PopupWithImage ('.popup_picture');
 
 const addCardButton = document.querySelector('.profile__add-button');
 
@@ -67,7 +67,7 @@ function addNewCard(name, link) {
     defaultCardList.addItem(cardElement);
 }
 
-//popupwithimage
+
 function onOpenPicturePopup(link, name) {
     picturePopup.open(link, name);
 }

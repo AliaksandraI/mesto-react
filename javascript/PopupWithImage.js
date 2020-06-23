@@ -5,7 +5,7 @@ export class PopupWithImage extends Popup {
         super(popupSelector);  
         this._name = this._popupElement.querySelector('.popup__title_picture');
         this._image = this._popupElement.querySelector('.popup__image');
-        this._setEventListeners();
+        super._setEventListeners();
     }
     
     open (link, name) {
@@ -13,15 +13,6 @@ export class PopupWithImage extends Popup {
         this._name.textContent = name;
         super.open();
     }
-
     
-    _setEventListeners() {
-        super._setEventListeners();
-        this._image.addEventListener('mousedown', (evt) => {
-            evt.stopImmediatePropagation();
-        });
-    }
-    
-
 }
 

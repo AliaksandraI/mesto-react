@@ -5,7 +5,7 @@ export class PopupWithForm extends Popup {
     constructor(popupSelector, submitFormCallback, validationOptions) {
         super(popupSelector);
         this._submitFormCallback = submitFormCallback;
-        this._inputValues = Array.from(this._popupElement.querySelectorAll(validationOptions.inputSelector));
+        this._inputList = Array.from(this._popupElement.querySelectorAll(validationOptions.inputSelector));
         this._popupForm = this._popupElement.querySelector('.popup__container');
         this._formValidator = new FormValidator (validationOptions, this._popupForm);
         this._formValidator.enableValidation();
@@ -13,7 +13,7 @@ export class PopupWithForm extends Popup {
     }
 
     _getInputValues () {
-        const resultInputValues = this._inputValues.map(function (input) {
+        const resultInputValues = this._inputList.map(function (input) {
             return input.value;
         });
 
@@ -21,7 +21,7 @@ export class PopupWithForm extends Popup {
     }
 
     setInputValues (values) {
-        values.forEach((value, index) => this._inputValues[index].value = value);
+        values.forEach((value, index) => this._inputList[index].value = value);
     }
 
     _onSubmitAddCardPopupForm() {
@@ -37,10 +37,6 @@ export class PopupWithForm extends Popup {
         this._popupForm.addEventListener('submit', () => {
             this._onSubmitAddCardPopupForm();
         });
-
-        this._popupForm.addEventListener('mousedown', (evt) => {
-            evt.stopImmediatePropagation();
-          });
     }
 
     open (resetStatus) {
