@@ -5,6 +5,9 @@
 @import url(./__item/elements__item.css);
 @import url(./__heart-button/elements__heart-button.css);
 @import url(./__delete-button/elements__delete-button.css);
+@import url(./__likes-container/elements__likes-container.css);
+@import url(./__likes/elements__likes.css);
+
 
 .elements {
     max-width: 882px;
