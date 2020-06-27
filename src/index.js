@@ -45,7 +45,6 @@ function addNewCard(name, link) {
     const card = new Card(name, link, '#card-template',onOpenPicturePopup);
     const cardElement = card.generateCard();
     defaultCardList.addItem(cardElement);
-    api.addNewCard(name,link);
 }
 
 
@@ -68,14 +67,27 @@ function onOpenProfilePopup(){
 
 function onSubmitProfilePopupForm(values) {
     const [name, profession] = values;
-    profileInfo.setUserInfo(name, profession);
-    api.updateUserInfo(name, profession);
+    //profileInfo.setUserInfo(name, profession);
+    api.updateUserInfo(name, profession)
+        .then (user => {
+            profileInfo.setUserInfo(user.name, user.about);
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
 
 
 function onSubmitAddCardPopupForm(values) {
     const [name, link] = values;
-    addNewCard(name, link);
+    
+    api.addNewCard(name,link)
+        .then(addedCard => {
+            addNewCard(addedCard.name, addedCard.link);
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
 
 
@@ -91,13 +103,15 @@ api.getUserInfo()
     })
     .catch(err => {
         console.log(err);
-    });
+    }); 
 
 
 api.getInitialCards()
     .then(cards => {
         defaultCardList.setItems(cards);
         defaultCardList.renderItems ();
+    }).catch(err => {
+        console.log(err);
     });
 
 

@@ -1,13 +1,13 @@
 export class API {
     constructor(options) {
-      this.baseUrl = options.baseUrl;
-      this.headers = options.headers;
+      this._baseUrl = options.baseUrl;
+      this._headers = options.headers;
     }
     
     _get(url) {
-        return fetch(`${this.baseUrl}/${url}`, {
+        return fetch(`${this._baseUrl}/${url}`, {
           headers: {
-            authorization: this.headers.authorization
+            authorization: this._headers.authorization
           }
         })
         .then(res => {
@@ -15,9 +15,6 @@ export class API {
               return res.json();
             }
             return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .catch((err) => {
-            console.log(err);
         });
     }
 
@@ -30,32 +27,37 @@ export class API {
         return this._get('cards');
     }
 
-    updateUserInfo(name,about) {
-        fetch(`${this.baseUrl}/users/me`, {
+    updateUserInfo(name, about) {
+        return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
-            headers: {
-              authorization: this.headers.authorization,
-              'Content-Type': 'application/json'
-            },
+            headers: this._headers,
             body: JSON.stringify({
               name: name,
               about: about
             })
+        })
+        .then(res => {
+            if (res.ok) {
+              return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
         });
     }
 
     addNewCard(name,link){
-        fetch(`${this.baseUrl}/cards`, {
+        return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
-            headers: {
-              authorization: this.headers.authorization,
-              'Content-Type': 'application/json'
-            },
-            mode: "no-cors",
+            headers: this._headers,
             body: JSON.stringify({
               name: name,
               link: link
             })
+        })
+        .then(res => {
+            if (res.ok) {
+              return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
         });
     }
 
