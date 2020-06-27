@@ -13,6 +13,10 @@ export class Section {
         this._container.innerHTML = ''
     }
 
+    setItems(items){
+        this._items = items;
+    }
+
     renderItems () {
         this._clear();
 
