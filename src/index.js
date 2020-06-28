@@ -5,7 +5,7 @@ import { Section } from '../javascript/Section.js';
 import { PopupWithImage } from '../javascript/PopupWithImage.js';
 import { PopupWithForm } from '../javascript/PopupWithForm.js';
 import { API } from '../javascript/Api.js';
-import { Popup } from '../javascript/Popup';
+import { PopupWithConfirmation } from '../javascript/PopupWithConfirmation.js';
 
 const validationOptions = {
     formSelector: '.form',
@@ -31,7 +31,7 @@ const profilePopup = new PopupWithForm ('.popup_profile', onSubmitProfilePopupFo
 
 const picturePopup = new PopupWithImage ('.popup_picture');
 
-const deleteCardPopup = new Popup ('.popup_check');
+const deleteCardPopup = new PopupWithConfirmation('.popup_check');
 
 const addCardButton = document.querySelector('.profile__add-button');
 
@@ -63,14 +63,18 @@ function addNewCard(id, name, link, likes, owner) {
 }
 
 function deleteCardHandler(cardToDelete) {
-    api.deleteCard(cardToDelete.getId())
+    deleteCardPopup.open(()=>{
+        api.deleteCard(cardToDelete.getId())
         .then(() => {
-            console.log(cardToDelete.getId());
             cardToDelete.delete();
         })
         .catch(err => {
             console.log(err);
+        })
+        .finally(()=>{
+            deleteCardPopup.close();
         });
+    });
 }
 
 
