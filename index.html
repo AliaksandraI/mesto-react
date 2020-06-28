@@ -20,7 +20,10 @@
         <main class="content">
             <section class="profile">
                 <div class="profile__info">
-                    <img src="images/profile_image.jpg" class="profile__image" alt="Жак-Ив Кусто фото">
+                    <div class="profile__avatar">
+                        <img src="images/pen.svg" class="profile_active" alt=" Изменение аватарки">
+                        <img src="images/profile_image.jpg" class="profile__image" alt="Жак-Ив Кусто фото">
+                    </div>
                     <div>
                         <div class="profile__name-container">
                             <h1 class="profile__name"></h1>
@@ -58,7 +61,8 @@
 
             <section class="popup popup_picture">
                 <div class="popup__container popup__container_picture">
-                    <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg" alt="картинка" class="popup__image">
+                    <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
+                        alt="картинка" class="popup__image">
                     <h2 class="popup__title popup__title_picture"></h2>
                     <button aria-label="close" type="button" class="popup__close-button">
                         <img src="./images/close_button.svg" alt="Кнопка закрыть" class="popup__close-button-image">
@@ -110,6 +114,22 @@
                 </div>
             </section>
 
+
+
+            <section class="popup popup_avatar popup_opened">
+                <form name="popup-add-form" method="get" action="#" class="popup__container form" novalidate>
+                    <h2 class="popup__title">Обновить аватар</h2>
+                    <input id="url-input" type="url" required placeholder="Ссылка на аватар"
+                        class="popup__text popup__text_type_link form__input">
+                    <span id="url-input-error" class="form__input-error"></span>
+                    <button type="submit" class="popup__button form__submit">Сохранить</button>
+                    <button aria-label="close" type="button" class="popup__close-button">
+                        <img src="./images/close_button.svg" alt="Кнопка закрыть" class="popup__close-button-image">
+                    </button>
+                </form>
+            </section>
+
+
         </main>
 
         <footer class="footer">
@@ -117,7 +137,7 @@
         </footer>
 
     </div>
-    
+
 </body>
 
 </html>
