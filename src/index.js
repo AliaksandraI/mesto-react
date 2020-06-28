@@ -5,6 +5,7 @@ import { Section } from '../javascript/Section.js';
 import { PopupWithImage } from '../javascript/PopupWithImage.js';
 import { PopupWithForm } from '../javascript/PopupWithForm.js';
 import { API } from '../javascript/Api.js';
+import { Popup } from '../javascript/Popup';
 
 const validationOptions = {
     formSelector: '.form',
@@ -29,6 +30,8 @@ const profileInfo = new UserInfo ('.profile__name', '.profile__profession')
 const profilePopup = new PopupWithForm ('.popup_profile', onSubmitProfilePopupForm, validationOptions);
 
 const picturePopup = new PopupWithImage ('.popup_picture');
+
+const deleteCardPopup = new Popup ('.popup_check');
 
 const addCardButton = document.querySelector('.profile__add-button');
 
