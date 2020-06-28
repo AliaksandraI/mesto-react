@@ -7,6 +7,7 @@ export class PopupWithForm extends Popup {
         this._submitFormCallback = submitFormCallback;
         this._inputList = Array.from(this._popupElement.querySelectorAll(validationOptions.inputSelector));
         this._popupForm = this._popupElement.querySelector('.popup__container');
+        this._submitButton = this._popupElement.querySelector('.popup__button');
         this._formValidator = new FormValidator (validationOptions, this._popupForm);
         this._formValidator.enableValidation();
         this._setEventListeners();
@@ -26,7 +27,7 @@ export class PopupWithForm extends Popup {
 
     _onSubmitAddCardPopupForm() {
         if (!this._popupElement.querySelector('.form__submit_inactive')){
-            this.close();
+            this._submitButton.textContent = 'Сохранение...';
             const result = this._getInputValues();
             this._submitFormCallback(result);
         }
@@ -40,6 +41,7 @@ export class PopupWithForm extends Popup {
     }
 
     open (resetStatus) {
+        this._submitButton.textContent = 'Сохранить';
         super.open();
         this._formValidator.resetFormErrors(resetStatus);
         this._popupForm.reset()

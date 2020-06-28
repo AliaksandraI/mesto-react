@@ -110,8 +110,11 @@ function onSubmitProfilePopupForm(values) {
         })
         .catch(err => {
             console.log(err);
+        })
+        .finally(()=>{
+            profilePopup.close();
         });
-}
+    }
 
 
 function onSubmitAddCardPopupForm(values) {
@@ -123,6 +126,9 @@ function onSubmitAddCardPopupForm(values) {
         })
         .catch(err => {
             console.log(err);
+        })
+        .finally(()=>{
+            addCardPopup.close();
         });
 }
 
@@ -134,7 +140,10 @@ function onSubmitAvatarPopupForm (values) {
         })
         .catch(err => {
             console.log(err);
-        }); 
+        })
+        .finally(()=>{
+            profileAvatarPopup.close();
+        });
 }
 
 editAvatarButton.addEventListener('click', onEditAvatarPopup);
