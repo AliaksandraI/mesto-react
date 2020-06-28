@@ -61,4 +61,26 @@ export class API {
         });
     }
 
+    _updateCardLike(cardId, method){
+        return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+            method: method,
+            headers: {
+                authorization: this._headers.authorization
+            }
+        })
+        .then(res => {
+            if (res.ok) {
+              return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
+        });
+    }
+
+    likeCard (cardId) {
+        return this._updateCardLike(cardId, 'PUT');
+    }
+
+    dislikeCard (cardId) {
+        return this._updateCardLike(cardId, 'DELETE');
+    }
 }

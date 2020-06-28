@@ -16,7 +16,7 @@ const validationOptions = {
 
 const editProfileButton = document.querySelector('.profile__edit-button');
 
-const api = new API({
+export const api = new API({
     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12',
     headers: {
       authorization: 'f4b731d6-2118-4fcc-9305-6dde1beafd26',
@@ -37,12 +37,23 @@ const addCardPopup = new PopupWithForm ('.popup_card', onSubmitAddCardPopupForm,
 const defaultCardList =  new Section({ 
     items:[],
     renderer: (item) => {
-        addNewCard(item.name, item.link);
+        addNewCard(item._id, item.name, item.link, item.likes);
     }
 }, '.elements');
 
-function addNewCard(name, link) {
-    const card = new Card(name, link, '#card-template',onOpenPicturePopup);
+function addNewCard(id, name, link, likes) {
+    let isLiked = false;
+    const currentUserId = profileInfo.getId();
+
+    let i;
+    for(i=0; i < likes.length; i++){
+        if(likes[i]._id == currentUserId){
+            isLiked = true;
+            break;
+        }
+    }
+
+    const card = new Card(id, name, link, isLiked, likes.length, '#card-template', onOpenPicturePopup, likeClickHandler);
     const cardElement = card.generateCard();
     defaultCardList.addItem(cardElement);
 }
@@ -67,10 +78,9 @@ function onOpenProfilePopup(){
 
 function onSubmitProfilePopupForm(values) {
     const [name, profession] = values;
-    //profileInfo.setUserInfo(name, profession);
     api.updateUserInfo(name, profession)
         .then (user => {
-            profileInfo.setUserInfo(user.name, user.about);
+            profileInfo.setUserInfo(user.name, user.about, user._id);
         })
         .catch(err => {
             console.log(err);
@@ -83,14 +93,12 @@ function onSubmitAddCardPopupForm(values) {
     
     api.addNewCard(name,link)
         .then(addedCard => {
-            addNewCard(addedCard.name, addedCard.link);
+            addNewCard(addedCard._id, addedCard.name, addedCard.link, addedCard.likes);
         })
         .catch(err => {
             console.log(err);
         });
 }
-
-
 
 
 editProfileButton.addEventListener('click', onOpenProfilePopup);
@@ -99,7 +107,7 @@ addCardButton.addEventListener('click', onOpenAddCardPopup);
 
 api.getUserInfo()
     .then (user => {
-        profileInfo.setUserInfo(user.name, user.about);
+        profileInfo.setUserInfo(user.name, user.about, user._id);
     })
     .catch(err => {
         console.log(err);
@@ -114,6 +122,15 @@ api.getInitialCards()
         console.log(err);
     });
 
+function likeClickHandler(currentCard) {
+    const likePromise = currentCard.isLiked() ? api.dislikeCard(currentCard.getId()) : api.likeCard(currentCard.getId());
+    
+    likePromise.then(cardInfo => {
+        currentCard.setLikeCount(cardInfo.likes.length);
+        currentCard.toggleLike(!currentCard.isLiked());
+    }).catch(err => {
+        console.log(err);
+    });
+};
 
-
-
+    
