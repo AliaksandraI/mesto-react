@@ -40,13 +40,14 @@ const addCardPopup = new PopupWithForm ('.popup_card', onSubmitAddCardPopupForm,
 const defaultCardList =  new Section({ 
     items:[],
     renderer: (item) => {
-        addNewCard(item._id, item.name, item.link, item.likes);
+        addNewCard(item._id, item.name, item.link, item.likes, item.owner._id);
     }
 }, '.elements');
 
-function addNewCard(id, name, link, likes) {
+function addNewCard(id, name, link, likes, owner) {
     let isLiked = false;
     const currentUserId = profileInfo.getId();
+    let isRemovable = owner == currentUserId;
 
     let i;
     for(i=0; i < likes.length; i++){
@@ -56,9 +57,20 @@ function addNewCard(id, name, link, likes) {
         }
     }
 
-    const card = new Card(id, name, link, isLiked, likes.length, '#card-template', onOpenPicturePopup, likeClickHandler);
+    const card = new Card(id, name, link, isLiked, isRemovable, likes.length, '#card-template', onOpenPicturePopup, likeClickHandler, deleteCardHandler);
     const cardElement = card.generateCard();
     defaultCardList.addItem(cardElement);
+}
+
+function deleteCardHandler(cardToDelete) {
+    api.deleteCard(cardToDelete.getId())
+        .then(() => {
+            console.log(cardToDelete.getId());
+            cardToDelete.delete();
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
 
 
@@ -96,7 +108,7 @@ function onSubmitAddCardPopupForm(values) {
     
     api.addNewCard(name,link)
         .then(addedCard => {
-            addNewCard(addedCard._id, addedCard.name, addedCard.link, addedCard.likes);
+            addNewCard(addedCard._id, addedCard.name, addedCard.link, addedCard.likes, addedCard.owner._id);
         })
         .catch(err => {
             console.log(err);

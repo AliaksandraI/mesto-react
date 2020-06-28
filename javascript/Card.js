@@ -1,5 +1,5 @@
 export class Card {
-    constructor(id, name, link, isLiked, likeCount, cardSelector, handleCardClick, handleLikeClick) {
+    constructor(id, name, link, isLiked, isRemovable, likeCount, cardSelector, handleCardClick, handleLikeClick, handleCardDelete) {
         this._id = id;
         this._name = name;
         this._link = link;
@@ -8,6 +8,8 @@ export class Card {
         this._cardSelector = cardSelector;
         this._handleCardClick = handleCardClick;
         this._handleLikeClick = handleLikeClick;
+        this._isRemovable = isRemovable;
+        this._handleCardDelete = handleCardDelete;
     }
 
     _getTemplate() {
@@ -19,9 +21,6 @@ export class Card {
         return cardElement;
     };
 
-    _deleteCard(evt) {
-        evt.target.parentElement.parentElement.remove();
-    };
 
     _setEventListeners() {
         this._likeButton.addEventListener('click', () => {
@@ -36,18 +35,24 @@ export class Card {
         });
 
         this._element.querySelector('.elements__delete-button').addEventListener('click', (evt) => {  
-            this._deleteCard(evt);
+            evt.preventDefault();
+            this._cardElementToBeDeleted = evt.target.parentElement.parentElement;
+            this._handleCardDelete(this);
         });
 
     };
 
     generateCard() {
         this._element = this._getTemplate();
-
+        this._deleteButton = this._element.querySelector('.elements__delete-button');
         this._likeButton = this._element.querySelector('.elements__heart-button');
         this._element.querySelector('.elements__item-title').textContent = this._name;
         this._element.querySelector('.elements__item-picture').src = this._link;
         this._likeElement = this._element.querySelector('.elements__likes');
+
+        if(!this._isRemovable) {
+            this._deleteButton.classList.add('elements__delete-button_inactive');
+        }
 
         this.setLikeCount(this._likeCount);
 
@@ -80,4 +85,13 @@ export class Card {
         this._isLiked = isLiked;
         this._likeButton.classList.toggle('elements__heart-button_active', isLiked);
     }
+
+        
+    delete() {
+        if(this._cardElementToBeDeleted) {
+            this._cardElementToBeDeleted.remove();
+        }
+    };
+
+
 }
