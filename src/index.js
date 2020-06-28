@@ -25,13 +25,17 @@ export const api = new API({
     }
 });
 
-const profileInfo = new UserInfo ('.profile__name', '.profile__profession')
+const profileInfo = new UserInfo ('.profile__name', '.profile__profession', '.profile__image');
 
 const profilePopup = new PopupWithForm ('.popup_profile', onSubmitProfilePopupForm, validationOptions);
+
+const profileAvatarPopup = new PopupWithForm ('.popup_avatar', onSubmitAvatarPopupForm, validationOptions);
 
 const picturePopup = new PopupWithImage ('.popup_picture');
 
 const deleteCardPopup = new PopupWithConfirmation('.popup_check');
+
+const editAvatarButton = document.querySelector('.profile__image');
 
 const addCardButton = document.querySelector('.profile__add-button');
 
@@ -87,6 +91,9 @@ function onOpenAddCardPopup(){
     addCardPopup.open(true);
 }
 
+function onEditAvatarPopup() {
+    profileAvatarPopup.open(true);
+}
 
 function onOpenProfilePopup(){
     profilePopup.open(false);
@@ -119,6 +126,18 @@ function onSubmitAddCardPopupForm(values) {
         });
 }
 
+function onSubmitAvatarPopupForm (values) {
+    const link= values[0];
+    api.updateUserAvatar(link)
+        .then(()=>{
+            profileInfo.setAvatar(link);
+        })
+        .catch(err => {
+            console.log(err);
+        }); 
+}
+
+editAvatarButton.addEventListener('click', onEditAvatarPopup);
 
 editProfileButton.addEventListener('click', onOpenProfilePopup);
 
@@ -127,6 +146,7 @@ addCardButton.addEventListener('click', onOpenAddCardPopup);
 api.getUserInfo()
     .then (user => {
         profileInfo.setUserInfo(user.name, user.about, user._id);
+        profileInfo.setAvatar(user.avatar);
     })
     .catch(err => {
         console.log(err);
