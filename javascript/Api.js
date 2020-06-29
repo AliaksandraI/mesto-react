@@ -4,18 +4,21 @@ export class API {
     this._headers = options.headers;
   }
 
+  _getResponseData(res) {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(new Error(`Ошибка: ${res.status}`));
+  }
+
+
   _get(url) {
     return fetch(`${this._baseUrl}/${url}`, {
       headers: {
         authorization: this._headers.authorization
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(new Error(`Ошибка: ${res.status}`));
-      });
+      .then(this._getResponseData);
   }
 
   getUserInfo() {
@@ -36,12 +39,7 @@ export class API {
         about: about
       })
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(new Error(`Ошибка: ${res.status}`));
-      });
+    .then(this._getResponseData);
   }
 
   addNewCard(name, link) {
@@ -53,12 +51,7 @@ export class API {
         link: link
       })
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(new Error(`Ошибка: ${res.status}`));
-      });
+    .then(this._getResponseData);
   }
 
   _updateCardLike(cardId, method) {
@@ -68,12 +61,7 @@ export class API {
         authorization: this._headers.authorization
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(new Error(`Ошибка: ${res.status}`));
-      });
+    .then(this._getResponseData);
   }
 
   likeCard(cardId) {
