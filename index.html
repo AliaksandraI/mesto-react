@@ -22,7 +22,7 @@
                 <div class="profile__info">
                     <div class="profile__avatar">
                         <img src="images/pen.svg" class="profile_active" alt=" Изменение аватарки">
-                        <img class="profile__image" alt="Жак-Ив Кусто фото">
+                        <img onerror="this.onerror=null;this.src='images/not_found.svg';" class="profile__image" alt="Аватар">
                     </div>
                     <div>
                         <div class="profile__name-container">
@@ -44,7 +44,7 @@
 
             <template id="card-template">
                 <div class="elements__item">
-                    <img class="elements__item-picture">
+                    <img onerror="this.onerror=null;this.src='images/not_found.svg';" class="elements__item-picture" alt="Картинка">
                     <div class="elements__item-info">
                         <h2 class="elements__item-title"></h2>
                         <div class="elements__likes-container">
@@ -61,7 +61,7 @@
 
             <section class="popup popup_picture">
                 <div class="popup__container popup__container_picture">
-                    <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
+                    <img onerror="this.onerror=null;this.src='images/not_found.svg';"
                         alt="картинка" class="popup__image">
                     <h2 class="popup__title popup__title_picture"></h2>
                     <button aria-label="close" type="button" class="popup__close-button">

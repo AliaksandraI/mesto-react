@@ -1,14 +1,14 @@
-import { FormValidator } from "./FormValidator.js";
+
 import { Popup } from "./Popup.js";
 
 export class PopupWithForm extends Popup {
-    constructor(popupSelector, submitFormCallback, validationOptions) {
+    constructor(popupSelector, submitFormCallback, validationOptions, formValidatorCreator) {
         super(popupSelector);
         this._submitFormCallback = submitFormCallback;
         this._inputList = Array.from(this._popupElement.querySelectorAll(validationOptions.inputSelector));
         this._popupForm = this._popupElement.querySelector('.popup__container');
         this._submitButton = this._popupElement.querySelector('.popup__button');
-        this._formValidator = new FormValidator (validationOptions, this._popupForm);
+        this._formValidator = formValidatorCreator(validationOptions, this._popupForm);
         this._formValidator.enableValidation();
         this._setEventListeners();
     }

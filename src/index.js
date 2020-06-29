@@ -6,30 +6,23 @@ import { PopupWithImage } from '../javascript/PopupWithImage.js';
 import { PopupWithForm } from '../javascript/PopupWithForm.js';
 import { API } from '../javascript/Api.js';
 import { PopupWithConfirmation } from '../javascript/PopupWithConfirmation.js';
-
-const validationOptions = {
-    formSelector: '.form',
-    inputSelector: '.form__input',
-    submitButtonSelector: '.form__submit',
-    inactiveButtonClass: 'form__submit_inactive',
-  };
+import { FormValidator } from '../javascript/FormValidator.js';
+import { validationOptions, apiConfig} from '../javascript/Utils.js';
 
 
 const editProfileButton = document.querySelector('.profile__edit-button');
 
-export const api = new API({
-    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12',
-    headers: {
-      authorization: 'f4b731d6-2118-4fcc-9305-6dde1beafd26',
-      'Content-Type': 'application/json'
-    }
-});
+export const api = new API (apiConfig);
+
+function createFormValidator(validationOptions, popupForm){
+    return new FormValidator (validationOptions, popupForm);
+} 
 
 const profileInfo = new UserInfo ('.profile__name', '.profile__profession', '.profile__image');
 
-const profilePopup = new PopupWithForm ('.popup_profile', onSubmitProfilePopupForm, validationOptions);
+const profilePopup = new PopupWithForm ('.popup_profile', onSubmitProfilePopupForm, validationOptions, createFormValidator);
 
-const profileAvatarPopup = new PopupWithForm ('.popup_avatar', onSubmitAvatarPopupForm, validationOptions);
+const profileAvatarPopup = new PopupWithForm ('.popup_avatar', onSubmitAvatarPopupForm, validationOptions, createFormValidator);
 
 const picturePopup = new PopupWithImage ('.popup_picture');
 
@@ -39,14 +32,8 @@ const editAvatarButton = document.querySelector('.profile__image');
 
 const addCardButton = document.querySelector('.profile__add-button');
 
-const addCardPopup = new PopupWithForm ('.popup_card', onSubmitAddCardPopupForm, validationOptions);
+const addCardPopup = new PopupWithForm ('.popup_card', onSubmitAddCardPopupForm, validationOptions, createFormValidator);
 
-const defaultCardList =  new Section({ 
-    items:[],
-    renderer: (item) => {
-        addNewCard(item._id, item.name, item.link, item.likes, item.owner._id);
-    }
-}, '.elements');
 
 function addNewCard(id, name, link, likes, owner) {
     let isLiked = false;
@@ -65,6 +52,13 @@ function addNewCard(id, name, link, likes, owner) {
     const cardElement = card.generateCard();
     defaultCardList.addItem(cardElement);
 }
+
+const defaultCardList =  new Section({ 
+    items:[],
+    renderer: (item) => {
+        addNewCard(item._id, item.name, item.link, item.likes, item.owner._id);
+    }
+}, '.elements');
 
 function deleteCardHandler(cardToDelete) {
     deleteCardPopup.open(()=>{
