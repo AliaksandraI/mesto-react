@@ -1,17 +1,16 @@
 import React from 'react';
-
-import './App.css';
+import '../index.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className="page">
       
       <main className="content">
             <section className="profile">
                 <div className="profile__info">
                     <div className="profile__avatar">
                         <img src="images/pen.svg" className="profile_active" alt=" Изменение аватарки"></img>
-                        <img onerror="this.onerror=null;this.src='images/not_found.svg';" className="profile__image" alt="Аватар"></img>
+                        <img onError={()=>{this.onerror=null; this.src='images/not_found.svg';}} className="profile__image" alt="Аватар"></img>
                     </div>
                     <div>
                         <div className="profile__name-container">
@@ -33,7 +32,7 @@ function App() {
 
             <template id="card-template">
                 <div className="elements__item">
-                    <img onerror="this.onerror=null;this.src='images/not_found.svg';" className="elements__item-picture" alt="Картинка"></img>
+                    <img onError={()=>{this.onerror=null;this.src='images/not_found.svg';}} className="elements__item-picture" alt="Картинка"></img>
                     <div className="elements__item-info">
                         <h2 className="elements__item-title"></h2>
                         <div className="elements__likes-container">
@@ -50,7 +49,7 @@ function App() {
 
             <section className="popup popup_picture">
                 <div className="popup__container popup__container_picture">
-                    <img onerror="this.onerror=null;this.src='images/not_found.svg';"
+                    <img onError={()=>{this.onerror=null;this.src='images/not_found.svg';}}
                         alt="картинка" className="popup__image"></img>
                     <h2 className="popup__title popup__title_picture"></h2>
                     <button aria-label="close" type="button" className="popup__close-button">
@@ -60,14 +59,14 @@ function App() {
             </section>
 
             <section className="popup popup_profile">
-                <form name="popup-form" method="get" action="#" className="popup__container form" novalidate>
+                <form name="popup-form" method="get" action="#" className="popup__container form" noValidate>
                     <h2 className="popup__title">Редактировать профиль</h2>
-                    <input id="name-input" type="text" required minlength="2" maxlength="40"
-                        pattern="[A-Za-zА-Яа-яЁё\s\-]+$" value="name" placeholder="Имя"
+                    <input id="name-input" type="text" required minLength="2" maxLength="40"
+                        pattern="[A-Za-zА-Яа-яЁё\s\-]+$" defaultValue="name" placeholder="Имя"
                         className="popup__text popup__text_type_name form__input"></input>
                     <span id="name-input-error" className="form__input-error"></span>
-                    <input id="profession-input" type="text" required minlength="2" maxlength="200"
-                        pattern="[A-Za-zА-Яа-яЁё\s\-,]+$" value="profession" placeholder="О себе"
+                    <input id="profession-input" type="text" required minLength="2" maxLength="200"
+                        pattern="[A-Za-zА-Яа-яЁё\s\-,]+$" defaultValue="profession" placeholder="О себе"
                         className="popup__text popup__text_type_profession form__input"></input>
                     <span id="profession-input-error" className="form__input-error"></span>
                     <button type="submit" className="popup__button form__submit form__submit_inactive">Сохранить</button>
@@ -78,9 +77,9 @@ function App() {
             </section>
 
             <section className="popup popup_card">
-                <form name="popup-add-form" method="get" action="#" className="popup__container form" novalidate>
+                <form name="popup-add-form" method="get" action="#" className="popup__container form" noValidate>
                     <h2 className="popup__title">Новое место</h2>
-                    <input id="picture-input" type="text" required minlength="1" maxlength="30" placeholder="Название"
+                    <input id="picture-input" type="text" required minLength="1" maxLength="30" placeholder="Название"
                         className="popup__text popup__text_type_picture form__input"></input>
                     <span id="picture-input-error" className="form__input-error"></span>
                     <input id="url-input" type="url" required placeholder="Ссылка на картинку"
@@ -106,7 +105,7 @@ function App() {
 
 
             <section className="popup popup_avatar">
-                <form name="popup-add-form" method="get" action="#" className="popup__container form" novalidate>
+                <form name="popup-add-form" method="get" action="#" className="popup__container form" noValidate>
                     <h2 className="popup__title">Обновить аватар</h2>
                     <input id="url-input" type="url" required placeholder="Ссылка на аватар"
                         className="popup__text popup__text_type_link form__input"></input>
