@@ -1,12 +1,13 @@
 import React from 'react';
 
 import api from '../utils/Api';
+import Card from './Card';
 
 import penPath from '../images/pen.svg';
 import notFoundImagePath from '../images/not_found.svg';
 import editButtonPath from '../images/edit__button.svg';
 import addButtonPath from '../images/add__button.svg';
-import deleteButtonPath from '../images/delete_button.svg';
+
 
 
 
@@ -16,16 +17,19 @@ class Main extends React.Component {
         super(props);
 
         this.state = {
+            userId: null,
             userName: null,
             userDescription: null,
-            userAvatar: null
+            userAvatar: null,
+            cards:[]
         }
     }
 
     componentDidMount() {
         api.getUserInfo()
         .then (user => {
-            this.setState({ userName: user.name,
+            this.setState({ userId: user._id,
+                            userName: user.name,
                             userDescription: user.about,
                             userAvatar: user.avatar
             });
@@ -34,6 +38,13 @@ class Main extends React.Component {
             console.log(err);
         }); 
 
+
+        api.getInitialCards()
+        .then(cards => {
+            this.setState({ cards: cards });
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
     onImageNotFound = (evt) => {
@@ -74,24 +85,14 @@ class Main extends React.Component {
                 </section>
 
                 <section className="elements">
-                </section>
+                
+                    {this.state.cards.map((card) => (
+   
+                        <Card  card={card} currentUserId={this.state.userId} key={card._id} onCardClick={this.props.onCardClick}/>
+                        )
+                    )}
 
-                <template id="card-template">
-                    <div className="elements__item">
-                        <img onError={this.onImageNotFound} className="elements__item-picture" alt="Картинка"></img>
-                        <div className="elements__item-info">
-                            <h2 className="elements__item-title"></h2>
-                            <div className="elements__likes-container">
-                                <button aria-label="like" type="button" className="elements__heart-button">
-                                </button>
-                                <p className="elements__likes"></p>
-                            </div>
-                        </div>
-                        <button aria-label="delete" type="button" className="elements__delete-button">
-                            <img src={deleteButtonPath} alt="Знак корзины"></img>
-                        </button>
-                    </div>
-                </template>
+                </section>
 
 
             </main>

@@ -15,7 +15,8 @@ class App extends React.Component {
         this.state = {
             isEditProfilePopupOpen: false,
             isAddPlacePopupOpen: false,
-            isEditAvatarPopupOpen: false
+            isEditAvatarPopupOpen: false,
+            selectedCard: null
         }
     }
 
@@ -28,9 +29,10 @@ class App extends React.Component {
                     onEditAvatar={this.handleEditAvatarClick}
                     onEditProfile={this.handleEditProfileClick}
                     onAddPlace={this.handleAddPlaceClick}
+                    onCardClick={this.handleCardClick}
                 />
 
-                <ImagePopup>
+                <ImagePopup card={this.state.selectedCard} onClose={this.closeAllPopups}>
                 </ImagePopup>
 
                 <PopupWithForm name="profile" title="Редактировать профиль" buttonName="Сохранить" isSubmitActive={false} isOpen={this.state.isEditProfilePopupOpen}  onClose={this.closeAllPopups}>
@@ -88,10 +90,16 @@ class App extends React.Component {
         this.setState({ isAddPlacePopupOpen: true });
     }
 
+    handleCardClick =(card) => {
+        this.setState({selectedCard: card});
+    }
+
     closeAllPopups = () => {
         this.setState({ isEditProfilePopupOpen: false,
             isAddPlacePopupOpen: false, 
-            isEditAvatarPopupOpen: false});
+            isEditAvatarPopupOpen: false,
+            selectedCard: null
+        });
     }
 
 
