@@ -7,38 +7,24 @@ import penPath from '../images/pen.svg';
 import notFoundImagePath from '../images/not_found.svg';
 import editButtonPath from '../images/edit__button.svg';
 import addButtonPath from '../images/add__button.svg';
-
+import { CurrentUserContext} from '../contexts/CurrentUserContext';
 
 
 
 class Main extends React.Component {
   
+    static contextType = CurrentUserContext;
+
     constructor(props) {
         super(props);
 
         this.state = {
-            userId: null,
-            userName: null,
-            userDescription: null,
-            userAvatar: null,
-            cards:[]
+           cards:[]
         }
     }
 
     componentDidMount() {
-        api.getUserInfo()
-        .then (user => {
-            this.setState({ userId: user._id,
-                            userName: user.name,
-                            userDescription: user.about,
-                            userAvatar: user.avatar
-            });
-        })
-        .catch(err => {
-            console.log(err);
-        }); 
-
-
+        
         api.getInitialCards()
         .then(cards => {
             this.setState({ cards: cards });
@@ -60,21 +46,21 @@ class Main extends React.Component {
                     <div className="profile__info">
                         <div className="profile__avatar">
                             <img src={penPath} className="profile_active" alt=" Изменение аватарки"></img>
-                            <img src={this.state.userAvatar} 
+                            <img src={this.context && this.context.avatar} 
                                 onError={this.onImageNotFound} 
                                 onClick={this.props.onEditAvatar} 
                                 className="profile__image" alt="Аватар"></img>
                         </div>
                         <div>
                             <div className="profile__name-container">
-                                <h1 className="profile__name">{this.state.userName}</h1>
+                                <h1 className="profile__name">{this.context && this.context.name}</h1>
                                 <button aria-label="edit" type="button" 
                                 onClick={this.props.onEditProfile} 
                                 className="profile__edit-button">
                                     <img src={editButtonPath} alt="Кнопка изменения"></img>
                                 </button>
                             </div>
-                                <p className="profile__profession">{this.state.userDescription}</p>
+                                <p className="profile__profession">{this.context && this.context.about}</p>
                         </div>
                     </div>
                     <button aria-label="add" type="button"
@@ -88,7 +74,7 @@ class Main extends React.Component {
                 
                     {this.state.cards.map((card) => (
    
-                        <Card  card={card} currentUserId={this.state.userId} key={card._id} onCardClick={this.props.onCardClick}/>
+                        <Card  card={card} currentUserId={this.context && this.context._id} key={card._id} onCardClick={this.props.onCardClick}/>
                         )
                     )}
 

@@ -1,10 +1,14 @@
 import React from 'react';
 
+import api from '../utils/Api';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
+import { CurrentUserContext} from '../contexts/CurrentUserContext';
+
+import FakeAvatarPath from '../images/гора_эльбрус.jpg';
 
 import '../index.css';
 
@@ -16,14 +20,34 @@ class App extends React.Component {
             isEditProfilePopupOpen: false,
             isAddPlacePopupOpen: false,
             isEditAvatarPopupOpen: false,
-            selectedCard: null
+            selectedCard: null,
+            currentUser: null
         }
     }
+
+    componentDidMount() {
+        
+        api.getUserInfo()
+        .then (user => {
+            this.setState({currentUser: user});
+        }).catch(err => {
+            this.setState({currentUser: {
+                _id: 123,
+                name: 'fake user',
+                about: 'because of no internet',
+                avatar: FakeAvatarPath
+            }});
+            console.log(err);
+        });
+    } 
 
     render () {
         return (        
             <div className="page">
                 <Header />
+
+                <CurrentUserContext.Provider value={this.state.currentUser}>
+
 
                 <Main
                     onEditAvatar={this.handleEditAvatarClick}
@@ -64,7 +88,8 @@ class App extends React.Component {
                     <span id="url-input-error" className="form__input-error"></span>
                 </PopupWithForm>
 
-                    
+                </CurrentUserContext.Provider>
+
                 <Footer />
 
 
@@ -72,7 +97,7 @@ class App extends React.Component {
             </div>  
         );
     }
-
+    
 
     handleEditAvatarClick = () => {
         this.setState({ isEditAvatarPopupOpen: true });
@@ -105,7 +130,7 @@ class App extends React.Component {
 
 }
 
-
-
-
 export default App;
+
+
+
