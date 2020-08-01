@@ -24,7 +24,6 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
-        
         api.getInitialCards()
         .then(cards => {
             this.setState({ cards: cards });
@@ -36,6 +35,24 @@ class Main extends React.Component {
     onImageNotFound = (evt) => {
         evt.target.onerror = null;
         evt.target.src = notFoundImagePath;
+    }
+
+    handleCardLike(card) {
+        const isLiked = card.likes.find((like) => like._id === this.context._id);
+        
+        const promise = isLiked ? api.dislikeCard(card._id) : api.likeCard(card._id);
+
+        promise.then((newCard) => {
+            const newCards = this.state.cards.map((c) => c._id === card._id ? newCard : c);
+            this.setState(newCards);
+        }
+
+        // Отправляем запрос в API и получаем обновлённые данные карточки
+        api.changeLikeCardStatus(card._id, !isLiked)
+        .then((newCard) => {
+          const newCards = this.state.cards.map((c) => c._id === card._id ? newCard : c);
+          this.setState(newCards);
+        });
     }
 
     render () {
