@@ -7,7 +7,7 @@ import penPath from '../images/pen.svg';
 import notFoundImagePath from '../images/not_found.svg';
 import editButtonPath from '../images/edit__button.svg';
 import addButtonPath from '../images/add__button.svg';
-import { CurrentUserContext} from '../contexts/CurrentUserContext';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 
 
@@ -37,26 +37,22 @@ class Main extends React.Component {
         evt.target.src = notFoundImagePath;
     }
 
-    handleCardLike(card) {
+
+    handleCardLike = (card) => {
         const isLiked = card.likes.find((like) => like._id === this.context._id);
-        
+    
         const promise = isLiked ? api.dislikeCard(card._id) : api.likeCard(card._id);
 
         promise.then((newCard) => {
+            
             const newCards = this.state.cards.map((c) => c._id === card._id ? newCard : c);
-            this.setState(newCards);
-        }
-
-        // Отправляем запрос в API и получаем обновлённые данные карточки
-        api.changeLikeCardStatus(card._id, !isLiked)
-        .then((newCard) => {
-          const newCards = this.state.cards.map((c) => c._id === card._id ? newCard : c);
-          this.setState(newCards);
+            this.setState({cards: newCards});
         });
+
     }
 
     render () {
-
+        
         return (
             <main className="content">
                 <section className="profile">
@@ -90,8 +86,9 @@ class Main extends React.Component {
                 <section className="elements">
                 
                     {this.state.cards.map((card) => (
-   
-                        <Card  card={card} currentUserId={this.context && this.context._id} key={card._id} onCardClick={this.props.onCardClick}/>
+                        
+                        <Card  card={card} currentUserId={this.context && this.context._id} key={card._id} onCardClick={this.props.onCardClick} onCardLike={this.handleCardLike}/>
+                        
                         )
                     )}
 

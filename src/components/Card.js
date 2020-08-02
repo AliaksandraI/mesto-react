@@ -20,6 +20,10 @@ class Card extends React.Component {
         this.props.onCardClick(this.props.card);
     }
 
+    handleLikeClick = () => {
+        this.props.onCardLike(this.props.card);
+    }
+
     render () {
         const isOwnCard = this.props.card.owner._id === this.context._id;
         const isOwnLike = this.props.card.likes.find((like) => like._id === this.context._id);
@@ -29,7 +33,7 @@ class Card extends React.Component {
                         <div className="elements__item-info">
                             <h2 className="elements__item-title">{this.props.card.name}</h2>
                             <div className="elements__likes-container">
-                                <button aria-label="like" type="button" className={`elements__heart-button  ${isOwnLike ?  "elements__heart-button_active" : '' }  `}>
+                                <button aria-label="like" type="button" onClick={this.handleLikeClick} className={`elements__heart-button  ${isOwnLike ?  "elements__heart-button_active" : '' }  `}>
                                 </button>
                                 <p className="elements__likes">{this.props.card.likes ? this.props.card.likes.length : 0}</p>
                             </div>
