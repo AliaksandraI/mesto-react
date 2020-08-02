@@ -51,6 +51,16 @@ class Main extends React.Component {
 
     }
 
+
+    handleCardDelete = (card) => {
+
+        api.deleteCard(card._id)
+            .then((deletedCard) => {
+            const newCards = this.state.cards.filter((c) => c._id !== deletedCard._id);
+            this.setState({cards: newCards});
+        });
+    }
+
     render () {
         
         return (
@@ -87,7 +97,7 @@ class Main extends React.Component {
                 
                     {this.state.cards.map((card) => (
                         
-                        <Card  card={card} currentUserId={this.context && this.context._id} key={card._id} onCardClick={this.props.onCardClick} onCardLike={this.handleCardLike}/>
+                        <Card  card={card} currentUserId={this.context && this.context._id} key={card._id} onCardClick={this.props.onCardClick} onCardLike={this.handleCardLike} onCardDelete={this.handleCardDelete}/>
                         
                         )
                     )}

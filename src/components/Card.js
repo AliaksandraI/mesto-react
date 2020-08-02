@@ -24,6 +24,10 @@ class Card extends React.Component {
         this.props.onCardLike(this.props.card);
     }
 
+    handleDeleteClick = () => {
+        this.props.onCardDelete(this.props.card);
+    }
+
     render () {
         const isOwnCard = this.props.card.owner._id === this.context._id;
         const isOwnLike = this.props.card.likes.find((like) => like._id === this.context._id);
@@ -38,7 +42,7 @@ class Card extends React.Component {
                                 <p className="elements__likes">{this.props.card.likes ? this.props.card.likes.length : 0}</p>
                             </div>
                         </div>
-                        <button aria-label="delete" type="button" className={`elements__delete-button ${!isOwnCard ? 'elements__delete-button_inactive' : ''}`} >
+                        <button aria-label="delete" type="button" onClick={this.handleDeleteClick} className={`elements__delete-button ${!isOwnCard ? 'elements__delete-button_inactive' : ''}`} >
                             <img src={deleteButtonPath} alt="Знак корзины"></img>
                         </button>
             </div>
