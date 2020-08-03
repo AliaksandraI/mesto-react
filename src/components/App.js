@@ -5,6 +5,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
+import EditProfilePopup from './EditProfilePopup';
 import ImagePopup from './ImagePopup';
 import { CurrentUserContext} from '../contexts/CurrentUserContext';
 
@@ -26,7 +27,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        
+        console.log('App');
         api.getUserInfo()
         .then (user => {
             this.setState({currentUser: user});
@@ -48,7 +49,6 @@ class App extends React.Component {
 
                 <CurrentUserContext.Provider value={this.state.currentUser}>
 
-
                 <Main
                     onEditAvatar={this.handleEditAvatarClick}
                     onEditProfile={this.handleEditProfileClick}
@@ -59,16 +59,8 @@ class App extends React.Component {
                 <ImagePopup card={this.state.selectedCard} onClose={this.closeAllPopups}>
                 </ImagePopup>
 
-                <PopupWithForm name="profile" title="Редактировать профиль" buttonName="Сохранить" isSubmitActive={false} isOpen={this.state.isEditProfilePopupOpen}  onClose={this.closeAllPopups}>
-                <input id="name-input" type="text" required minLength="2" maxLength="40"
-                            pattern="[A-Za-zА-Яа-яЁё\s\-]+$" defaultValue="name" placeholder="Имя"
-                            className="popup__text popup__text_type_name form__input"></input>
-                        <span id="name-input-error" className="form__input-error"></span>
-                        <input id="profession-input" type="text" required minLength="2" maxLength="200"
-                            pattern="[A-Za-zА-Яа-яЁё\s\-,]+$" defaultValue="profession" placeholder="О себе"
-                            className="popup__text popup__text_type_profession form__input"></input>
-                        <span id="profession-input-error" className="form__input-error"></span>
-                </PopupWithForm>
+                <EditProfilePopup  onUpdateUser={this.handleUpdateUser} isOpen={this.state.isEditProfilePopupOpen} onClose={this.closeAllPopups}>
+                </EditProfilePopup>
 
                 <PopupWithForm name="card" title="Новое место" buttonName="Сохранить" isSubmitActive={true} isOpen={this.state.isAddPlacePopupOpen} onClose={this.closeAllPopups}>
                         <input id="picture-input" type="text" required minLength="1" maxLength="30" placeholder="Название"
@@ -98,6 +90,25 @@ class App extends React.Component {
         );
     }
     
+    handleUpdateUser = (name, about) => {
+
+        api.updateUserInfo(name, about)
+        .then (user => {
+            this.setState({currentUser: user});
+        }).catch(err => {
+            this.setState({currentUser: {
+                _id: 123,
+                name: 'fake user',
+                about: 'because of no internet',
+                avatar: FakeAvatarPath
+            }});
+            console.log(err);
+        });
+
+
+        this.closeAllPopups();
+
+    }
 
     handleEditAvatarClick = () => {
         this.setState({ isEditAvatarPopupOpen: true });

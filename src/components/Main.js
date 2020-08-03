@@ -40,15 +40,12 @@ class Main extends React.Component {
 
     handleCardLike = (card) => {
         const isLiked = card.likes.find((like) => like._id === this.context._id);
-    
         const promise = isLiked ? api.dislikeCard(card._id) : api.likeCard(card._id);
 
         promise.then((newCard) => {
-            
             const newCards = this.state.cards.map((c) => c._id === card._id ? newCard : c);
             this.setState({cards: newCards});
         });
-
     }
 
 
