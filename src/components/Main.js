@@ -17,19 +17,6 @@ class Main extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-           cards:[]
-        }
-    }
-
-    componentDidMount() {
-        api.getInitialCards()
-        .then(cards => {
-            this.setState({ cards: cards });
-        }).catch(err => {
-            console.log(err);
-        });
     }
 
     onImageNotFound = (evt) => {
@@ -37,26 +24,6 @@ class Main extends React.Component {
         evt.target.src = notFoundImagePath;
     }
 
-
-    handleCardLike = (card) => {
-        const isLiked = card.likes.find((like) => like._id === this.context._id);
-        const promise = isLiked ? api.dislikeCard(card._id) : api.likeCard(card._id);
-
-        promise.then((newCard) => {
-            const newCards = this.state.cards.map((c) => c._id === card._id ? newCard : c);
-            this.setState({cards: newCards});
-        });
-    }
-
-
-    handleCardDelete = (card) => {
-
-        api.deleteCard(card._id)
-            .then((deletedCard) => {
-            const newCards = this.state.cards.filter((c) => c._id !== deletedCard._id);
-            this.setState({cards: newCards});
-        });
-    }
 
     render () {
         
@@ -92,8 +59,8 @@ class Main extends React.Component {
 
                 <section className="elements">
                 
-                    {this.state.cards.map((card) => (
-                        <Card  card={card} currentUserId={this.context && this.context._id} key={card._id} onCardClick={this.props.onCardClick} onCardLike={this.handleCardLike} onCardDelete={this.handleCardDelete}/>
+                    {this.props.cards.map((card) => (
+                        <Card  card={card} currentUserId={this.context && this.context._id} key={card._id} onCardClick={this.props.onCardClick} onCardLike={this.props.onCardLike} onCardDelete={this.props.onCardDelete}/>
                         )
                     )}
 

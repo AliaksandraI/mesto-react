@@ -81,12 +81,7 @@ export class API {
         authorization: this._headers.authorization
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return Promise.resolve();
-        }
-        return Promise.reject(new Error(`Ошибка: ${res.status}`));
-      });
+      .then(this._getResponseData);
   }
 
   updateUserAvatar(link) {
