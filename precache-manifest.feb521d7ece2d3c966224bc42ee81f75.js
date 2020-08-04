@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2160f50f104df9ac3087f8c61b25d509",
+    "revision": "4c021c39c02c1191facf391f22ade7e7",
     "url": "/mesto-react/index.html"
   },
   {
-    "revision": "25e6be9adfa1c4e76be2",
+    "revision": "6a9e1826a0c99cde6bea",
     "url": "/mesto-react/static/css/main.4d2a2852.chunk.css"
   },
   {
-    "revision": "85f6c4a8ba79332d1500",
-    "url": "/mesto-react/static/js/2.e7534fa7.chunk.js"
+    "revision": "a66adb2f417b5b55cccb",
+    "url": "/mesto-react/static/js/2.0782d2d9.chunk.js"
   },
   {
     "revision": "e88a3e95b5364d46e95b35ae8c0dc27d",
-    "url": "/mesto-react/static/js/2.e7534fa7.chunk.js.LICENSE.txt"
+    "url": "/mesto-react/static/js/2.0782d2d9.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "25e6be9adfa1c4e76be2",
-    "url": "/mesto-react/static/js/main.2a0cbfc6.chunk.js"
+    "revision": "6a9e1826a0c99cde6bea",
+    "url": "/mesto-react/static/js/main.aa23b817.chunk.js"
   },
   {
     "revision": "b653025071dc48eddfc2",
@@ -106,5 +106,9 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "d476a8b86d0b656cfa463c1148e96069",
     "url": "/mesto-react/static/media/pen.d476a8b8.svg"
+  },
+  {
+    "revision": "d6ed763994daf9a66161772350f830fd",
+    "url": "/mesto-react/static/media/гора_эльбрус.d6ed7639.jpg"
   }
 ]);
