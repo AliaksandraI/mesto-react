@@ -22,12 +22,16 @@ class App extends React.Component {
             isAddPlacePopupOpen: false,
             isEditAvatarPopupOpen: false,
             selectedCard: null,
-            currentUser: null
+            currentUser: {
+                _id: 123,
+                name: 'fake user',
+                about: 'default',
+                avatar: FakeAvatarPath
+            }
         }
     }
 
     componentDidMount() {
-        console.log('App');
         api.getUserInfo()
         .then (user => {
             this.setState({currentUser: user});
@@ -90,8 +94,7 @@ class App extends React.Component {
         );
     }
     
-    handleUpdateUser = (name, about) => {
-
+    handleUpdateUser = ({name, about}) => {
         api.updateUserInfo(name, about)
         .then (user => {
             this.setState({currentUser: user});
@@ -99,7 +102,7 @@ class App extends React.Component {
             this.setState({currentUser: {
                 _id: 123,
                 name: 'fake user',
-                about: 'because of no internet',
+                about: 'user data update has mistake',
                 avatar: FakeAvatarPath
             }});
             console.log(err);

@@ -12,7 +12,7 @@ class PopupWithForm extends React.Component {
         return (
 
             <section className={`popup popup_${this.props.name} ${this.props.isOpen ? "popup_opened" : ""}`}>
-                    <form name={`popup-${this.props.name}-form`} method="get" action="#" className="popup__container form" noValidate>
+                    <form name={`popup-${this.props.name}-form`} method="get" action="#" className="popup__container form" noValidate onSubmit={this.props.onSubmit}>
                         <h2 className="popup__title">{this.props.title}</h2>
                         {this.props.children}
                         <button type="submit" className={`popup__button form__submit ${this.props.isSubmitActive ? "" : "form__submit_inactive"}`}>{this.props.buttonName}</button>

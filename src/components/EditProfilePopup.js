@@ -3,61 +3,60 @@ import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 
-class EditProfilePopup extends React.Component {
-    
-    static contextType = CurrentUserContext;
+function EditProfilePopup(props) {
 
-    constructor(props) {
-        super(props);
+    const currentUser = React.useContext(CurrentUserContext);
+    const [name, setName] = React.useState('');
+    const [description, setDescription] = React.useState('');
 
-        this.state = {
-            name: 'Sasha',
-            description: 'null'
-        }
+
+
+    React.useEffect(() => {
+        setName(currentUser.name);
+        setDescription(currentUser.about);
+    }, [currentUser]);
+
+
+
+    function handleNameChange(event) {
+        setName(event.target.value);
     }
 
-   componentDidMount() {
-        console.log('EditProfile');
-        //if(this.context != null)
-        //    this.setState({name: this.context.name, description: this.context.about});
-    }
-    
-
-    handleNameChange = (event) => {
-        this.setState({name: event.target.value});
-        console.log(this.context);
+    function handleDescriptionChange(event) {
+        setDescription(event.target.value);
     }
 
-    handleDescriptionChange = (event) => {
-        this.setState({description: event.target.value});
-    }
-
-    handleSubmit = (event) => {
+    function handleSubmit(event) {
         event.preventDefault();
-        this.props.onUpdateUser(this.state.name, this.state.description);
+        props.onUpdateUser({
+            name,
+            about: description,
+          });
     }
 
-    render () {
-
-        //this.setState({name: this.context.name, description: this.context.about});
-
-        return (
-            <PopupWithForm name="profile" title="Редактировать профиль" buttonName="Сохранить" isSubmitActive={false} isOpen={this.props.isOpen}  onClose={this.props.onClose} onSubmit={this.handleSubmit}>
-                <input id="name-input" type="text" required minLength="2" maxLength="40"
-                    pattern="[A-Za-zА-Яа-яЁё\s\-]+$" placeholder="Имя"
-                    className="popup__text popup__text_type_name form__input"
-                    onChange={this.handleNameChange}
-                    value={this.state.name}></input>
-                <span id="name-input-error" className="form__input-error"></span>
-                <input id="profession-input" type="text" required minLength="2" maxLength="200"
-                    pattern="[A-Za-zА-Яа-яЁё\s\-,]+$" placeholder="О себе"
-                    className="popup__text popup__text_type_profession form__input"
-                    onChange={this.handleDescriptionChange}
-                    value={this.state.description}></input>
-                <span id="profession-input-error" className="form__input-error"></span>
-            </PopupWithForm>
-        )
+    function onCloseProfilePopup() {
+        props.onClose();
+        setName(currentUser.name);
+        setDescription(currentUser.about);
     }
+
+    return (
+        <PopupWithForm name="profile" title="Редактировать профиль" buttonName="Сохранить" isSubmitActive={true} isOpen={props.isOpen} onClose={onCloseProfilePopup} onSubmit={handleSubmit}>
+            <input id="name-input" type="text" required minLength="2" maxLength="40"
+                pattern="[A-Za-zА-Яа-яЁё\s\-]+$" placeholder="Имя"
+                className="popup__text popup__text_type_name form__input"
+                onChange={handleNameChange}
+                value={name}></input>
+            <span id="name-input-error" className="form__input-error"></span>
+            <input id="profession-input" type="text" required minLength="2" maxLength="200"
+                pattern="[A-Za-zА-Яа-яЁё\s\-,]+$" placeholder="О себе"
+                className="popup__text popup__text_type_profession form__input"
+                onChange={handleDescriptionChange}
+                value={description}></input>
+            <span id="profession-input-error" className="form__input-error"></span>
+        </PopupWithForm>
+    )
+
 }
 
 
