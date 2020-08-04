@@ -97,12 +97,7 @@ export class API {
         avatar: link
       })
     })
-      .then(res => {
-        if (res.ok) {
-          return Promise.resolve();
-        }
-        return Promise.reject(new Error(`Ошибка: ${res.status}`));
-      });
+    .then(this._getResponseData);
   }
 }
 

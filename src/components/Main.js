@@ -93,9 +93,7 @@ class Main extends React.Component {
                 <section className="elements">
                 
                     {this.state.cards.map((card) => (
-                        
                         <Card  card={card} currentUserId={this.context && this.context._id} key={card._id} onCardClick={this.props.onCardClick} onCardLike={this.handleCardLike} onCardDelete={this.handleCardDelete}/>
-                        
                         )
                     )}
 

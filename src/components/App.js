@@ -6,6 +6,7 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 import ImagePopup from './ImagePopup';
 import { CurrentUserContext} from '../contexts/CurrentUserContext';
 
@@ -78,11 +79,8 @@ class App extends React.Component {
                 <PopupWithForm name="check" title="Вы уверены?" buttonName="Да" isSubmitActive={true} isOpen={false} onClose={this.closeAllPopups}>
                 </PopupWithForm>
 
-                <PopupWithForm name="avatar" title="Обновить аватар" buttonName="Сохранить" isSubmitActive={true} isOpen={this.state.isEditAvatarPopupOpen} onClose={this.closeAllPopups}>
-                    <input id="url-input" type="url" required placeholder="Ссылка на аватар"
-                            className="popup__text popup__text_type_link form__input"></input>
-                    <span id="url-input-error" className="form__input-error"></span>
-                </PopupWithForm>
+                <EditAvatarPopup onUpdateAvatar={this.handleUpdateAvatar} isOpen={this.state.isEditAvatarPopupOpen} onClose={this.closeAllPopups}>
+                </EditAvatarPopup>
 
                 </CurrentUserContext.Provider>
 
@@ -107,11 +105,24 @@ class App extends React.Component {
             }});
             console.log(err);
         });
-
-
         this.closeAllPopups();
-
     }
+
+    handleUpdateAvatar = ({avatar}) => {
+        api.updateUserAvatar(avatar)
+        .then (user => {
+            this.setState({currentUser: user});
+        }).catch(err => {
+            this.setState({currentUser: {
+                _id: 123,
+                name: 'fake user',
+                about: 'user avatar update has mistake',
+                avatar: FakeAvatarPath
+            }});
+            console.log(err);
+        });
+        this.closeAllPopups();
+    } 
 
     handleEditAvatarClick = () => {
         this.setState({ isEditAvatarPopupOpen: true });
